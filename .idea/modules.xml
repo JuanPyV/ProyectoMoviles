@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AplicacioncitaConMemin.iml" filepath="$PROJECT_DIR$/AplicacioncitaConMemin.iml" group="AplicacioncitaConMemin" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/ProyectoMoviles.iml" filepath="$PROJECT_DIR$/.idea/ProyectoMoviles.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="AplicacioncitaConMemin/app" />
     </modules>
   </component>
