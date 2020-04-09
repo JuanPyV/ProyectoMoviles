@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1036256372103",
+    "firebase_url": "https://traverio.firebaseio.com",
+    "project_id": "traverio",
+    "storage_bucket": "traverio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036256372103:android:e47ef9eb436b3bc2981f22",
+        "android_client_info": {
+          "package_name": "com.example.aplicacioncitaconmemin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036256372103-v36aht2ado12ooqc5c8n8f77oep2bf0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU5lHuW0WF1vCOvxY3qND6QWq_9xafJOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036256372103-v36aht2ado12ooqc5c8n8f77oep2bf0l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
