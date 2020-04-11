@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -46,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void abrirRegistro(View v){
         Intent intentito = new Intent(this, RegisterActivity.class);
+        startActivity(intentito);
+    }
+
+    public void prueba(View v){
+        Intent intentito = new Intent(this, Home.class);
         startActivity(intentito);
     }
 
