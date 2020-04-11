@@ -22,8 +22,9 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         meo=(MeowBottomNavigation)findViewById(R.id.bottom_nav);
-        meo.add(new MeowBottomNavigation.Model(1,R.drawable.home));
-        meo.add(new MeowBottomNavigation.Model(2,R.drawable.login));
+
+        meo.add(new MeowBottomNavigation.Model(2,R.drawable.home));
+        meo.add(new MeowBottomNavigation.Model(1,R.drawable.login));
         meo.add(new MeowBottomNavigation.Model(3,R.drawable.about));
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
