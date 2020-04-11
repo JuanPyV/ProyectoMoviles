@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
     EditText username, pass;
     Button login;
-    private UserDB userDB;
 
     private FirebaseAuth mAuth;
 
@@ -28,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         username = findViewById(R.id.username);
         pass = findViewById(R.id.pass);
-        userDB = new UserDB(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -48,12 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View v){
-        boolean intento = userDB.tryLogin(username.getText() + "", pass.getText() + "");
-        if (intento){
-            Toast.makeText(this, "Iniciado de sesión correcto", Toast.LENGTH_SHORT).show();
-        } else{
-            Toast.makeText(this, "Iniciado de sesión incorrecto", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
 
