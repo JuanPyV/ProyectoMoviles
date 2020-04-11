@@ -66,16 +66,23 @@ public class MainActivity extends AppCompatActivity {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "signInWithEmail:success");
                     FirebaseUser user = mAuth.getCurrentUser();
+                    moveToHome();
+                    Log.wtf("Logeando", "Logging in");
                     //updateUI(user);
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("TAG", "signInWithEmail:failure", task.getException());
-                    Toast.makeText(MainActivity.this, "Inicio de sesión fallido. ¿Quizá introduciste una contraseña incorrecta?",
+                    Toast.makeText(MainActivity.this, "Usuario o contraseña incorrecto.",
                             Toast.LENGTH_SHORT).show();
                     //updateUI(null);
                 }
             }
         });
+    }
+
+    private void moveToHome(){
+        Intent intentito = new Intent(this, Home.class);
+        startActivity(intentito);
     }
 
 

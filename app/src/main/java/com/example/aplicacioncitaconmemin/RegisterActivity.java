@@ -3,6 +3,7 @@ package com.example.aplicacioncitaconmemin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -49,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
                     FirebaseUser user = mAuth.getCurrentUser();
                     Toast.makeText(RegisterActivity.this, "Registro correcto",
                             Toast.LENGTH_SHORT).show();
+                    finish();
                     //updateUI(user);
                 } else {
                     // If sign in fails, display a message to the user.
@@ -59,6 +61,11 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void moveToLogin(){
+        Intent intentito = new Intent(this, MainActivity.class);
+        startActivity(intentito);
     }
 
 
