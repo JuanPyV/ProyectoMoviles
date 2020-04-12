@@ -4,15 +4,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class FragmentAbout extends Fragment {
-    @Nullable
+
+    EditText location;
+    ListView information;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_about,container,false);
+        View v = inflater.inflate(R.layout.fragment_about,container,false);
+
+       location = v.findViewById(R.id.location);
+
+       information = v.findViewById(R.id.peopleData);
+
+
+        return v;
     }
 }
