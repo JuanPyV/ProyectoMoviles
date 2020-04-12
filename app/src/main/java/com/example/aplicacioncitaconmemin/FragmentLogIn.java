@@ -70,7 +70,6 @@ public class FragmentLogIn extends Fragment {
                     age.setText(information.getAge());
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

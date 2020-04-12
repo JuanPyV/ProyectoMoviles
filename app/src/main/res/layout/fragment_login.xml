@@ -10,94 +10,135 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="106dp"
+        android:layout_height="103dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/btn_star_big_on"
         tools:layout_conversion_absoluteHeight="138dp"
         tools:layout_conversion_absoluteWidth="154dp" />
 
-    <EditText
-        android:id="@+id/username"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameLay"
+        style="@style/TextInputLayout"
         android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
-        android:ems="10"
+        android:layout_height="70dp"
+        android:layout_marginTop="15dp"
         android:hint="Username"
-        android:inputType="textPersonName"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
 
-    <EditText
-        android:id="@+id/firstname"
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/firstnameLay"
+        style="@style/TextInputLayout"
         android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:ems="10"
+        android:layout_height="70dp"
+        android:layout_marginTop="5dp"
         android:hint="First Name"
-        android:inputType="textPersonName"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameLay">
 
-    <EditText
-        android:id="@+id/lastname"
+        <EditText
+            android:id="@+id/firstname"
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lastnameLay"
+        style="@style/TextInputLayout"
         android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:ems="10"
+        android:layout_height="70dp"
+        android:layout_marginTop="5dp"
         android:hint="Last Name"
-        android:inputType="textPersonName"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/firstname" />
+        app:layout_constraintTop_toBottomOf="@+id/firstnameLay">
 
-    <EditText
-        android:id="@+id/location"
+        <EditText
+            android:id="@+id/lastname"
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/locationLay"
+        style="@style/TextInputLayout"
         android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:ems="10"
+        android:layout_height="70dp"
+        android:layout_marginTop="5dp"
         android:hint="Location"
-        android:inputType="textPersonName"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastname" />
+        app:layout_constraintTop_toBottomOf="@+id/lastnameLay">
 
-    <EditText
-        android:id="@+id/age"
+        <EditText
+            android:id="@+id/location"
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ageLay"
+        style="@style/TextInputLayout"
         android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:ems="10"
+        android:layout_height="70dp"
+        android:layout_marginTop="5dp"
         android:hint="Age"
-        android:inputType="textPersonName"
+        android:orientation="vertical"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
+        app:layout_constraintTop_toBottomOf="@+id/locationLay">
+
+        <EditText
+            android:id="@+id/age"
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/buttonSubmit"
         android:layout_width="354dp"
         android:layout_height="54dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="173dp"
         android:onClick="updateInformation"
-        android:text="Button"
+        android:text="Update Data"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age"
-        app:layout_constraintVertical_bias="0.045" />
+        app:layout_constraintTop_toBottomOf="@+id/ageLay"
+        app:layout_constraintVertical_bias="0.099" />
 </androidx.constraintlayout.widget.ConstraintLayout>
