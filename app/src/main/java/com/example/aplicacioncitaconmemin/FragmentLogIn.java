@@ -46,6 +46,7 @@ public class FragmentLogIn extends Fragment {
         age = v.findViewById(R.id.age);
         submit = v.findViewById(R.id.buttonSubmit);
         System.out.println("estoy siendo creado");
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +87,7 @@ public class FragmentLogIn extends Fragment {
         String lastName2 = lastName.getText().toString();
         String location2 = location.getText().toString();
         String age2 = age.getText().toString();
-        UserInformation info = new UserInformation(username2, firstName2, lastName2, location2, age2);
+        UserInformation info = new UserInformation(username2, location2, firstName2, lastName2, age2);
         FirebaseUser user = firebaseAuth.getCurrentUser();
         databaseReference.child(user.getUid()).setValue(info);
         Toast.makeText(getActivity(), "Informacion actualizada!", Toast.LENGTH_SHORT).show();
