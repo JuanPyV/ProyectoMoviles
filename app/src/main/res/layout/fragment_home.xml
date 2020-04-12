@@ -26,7 +26,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button6" />
+                app:layout_constraintTop_toBottomOf="@+id/update" />
 
             <EditText
                 android:id="@+id/description"
@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/description" />
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/delete"
                 android:layout_width="96dp"
                 android:layout_height="38dp"
                 android:layout_marginTop="25dp"
@@ -67,7 +67,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/create"
                 android:layout_width="96dp"
                 android:layout_height="38dp"
                 android:layout_marginStart="30dp"
@@ -77,14 +77,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/update"
                 android:layout_width="96dp"
                 android:layout_height="38dp"
                 android:layout_marginTop="25dp"
                 android:text="update"
-                app:layout_constraintEnd_toStartOf="@+id/button7"
+                app:layout_constraintEnd_toStartOf="@+id/delete"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button3"
+                app:layout_constraintStart_toEndOf="@+id/create"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.viewpager.widget.ViewPager
