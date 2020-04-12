@@ -39,7 +39,7 @@ public class FragmentLogIn extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
-        username = v.findViewById(R.id.username);
+        username = v.findViewById(R.id.usernameInicio);
         firstName = v.findViewById(R.id.firstname);
         lastName = v.findViewById(R.id.lastname);
         location = v.findViewById(R.id.location);
@@ -56,7 +56,6 @@ public class FragmentLogIn extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -82,11 +81,11 @@ public class FragmentLogIn extends Fragment {
     }
 
     private void createInformation(){
-        String username2 = username.getText().toString();
-        String firstName2 = firstName.getText().toString();
-        String lastName2 = lastName.getText().toString();
-        String location2 = location.getText().toString();
-        String age2 = age.getText().toString();
+        String username2 = username.getText().toString().toLowerCase();
+        String firstName2 = firstName.getText().toString().toLowerCase();
+        String lastName2 = lastName.getText().toString().toLowerCase();
+        String location2 = location.getText().toString().toLowerCase();
+        String age2 = age.getText().toString().toLowerCase();
         UserInformation info = new UserInformation(username2, location2, firstName2, lastName2, age2);
         FirebaseUser user = firebaseAuth.getCurrentUser();
         databaseReference.child(user.getUid()).setValue(info);

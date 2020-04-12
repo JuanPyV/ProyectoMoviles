@@ -17,10 +17,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.586"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pass" />
+        app:layout_constraintTop_toBottomOf="@+id/passInicio" />
 
     <EditText
-        android:id="@+id/pass"
+        android:id="@+id/passInicio"
         android:layout_width="255dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
@@ -31,10 +31,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.653"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameInicio" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/usernameInicio"
         android:layout_width="254dp"
         android:layout_height="38dp"
         android:layout_marginTop="36dp"
