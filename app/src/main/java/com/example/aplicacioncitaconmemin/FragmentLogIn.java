@@ -38,22 +38,31 @@ public class FragmentLogIn extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_login,container,false);
+        View v = inflater.inflate(R.layout.fragment_login, container, false);
         username = v.findViewById(R.id.username);
         firstName = v.findViewById(R.id.firstname);
         lastName = v.findViewById(R.id.lastname);
         location = v.findViewById(R.id.location);
         age = v.findViewById(R.id.age);
         submit = v.findViewById(R.id.buttonSubmit);
+        System.out.println("estoy siendo creado");
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createInformation();
+            }
+        });
+        firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserInformation information = dataSnapshot.getValue(UserInformation.class);
-                if (information != null){
+                UserInformation information = dataSnapshot.child(user.getUid()).getValue(UserInformation.class);
+                System.out.println("intentando cargar datos");
+                if (information != null) {
+                    System.out.println("el objeto no es nulo, cargando datos, tal vez sean vacios");
                     username.setText(information.getUsername());
                     firstName.setText(information.getFirstName());
                     lastName.setText(information.getLastName());
@@ -70,10 +79,6 @@ public class FragmentLogIn extends Fragment {
 
 
         return v;
-    }
-
-    public void updateInformation(View v){
-        createInformation();
     }
 
     private void createInformation(){

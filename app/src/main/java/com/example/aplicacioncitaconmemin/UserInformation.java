@@ -18,6 +18,10 @@ public class UserInformation {
         this.age = age;
     }
 
+    public UserInformation() {
+
+    }
+
     public String getUsername() {
         return username;
     }
