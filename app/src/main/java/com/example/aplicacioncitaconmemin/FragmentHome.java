@@ -20,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FragmentHome extends Fragment {
 
@@ -110,17 +109,21 @@ public class FragmentHome extends Fragment {
     }
 
     private void loadImages(){
+        imageUrls.clear();
+        titles.clear();
+        descriptions.clear();
         DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference().child("Lugares");
         databaseReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot objDataSnapshot : dataSnapshot.getChildren()){
+                    System.out.println(objDataSnapshot.getKey() + " llave");
                     PlaceInformation placeInformation = objDataSnapshot.getValue(PlaceInformation.class);
-                    imageUrls.add(placeInformation.getURL());
+                    imageUrls.add(placeInformation.getLink());
                      //null porque????
                     titles.add(placeInformation.getTitle());
                     descriptions.add(placeInformation.getDescription());
-                    System.out.println(placeInformation.getURL() + "location");
+                    System.out.println(placeInformation.getLink() + "location");
                     System.out.println(placeInformation.getTitle() + "titulo");
                     System.out.println(placeInformation.getDescription() + "descripcion"); //aparece correcto
 
@@ -143,14 +146,15 @@ public class FragmentHome extends Fragment {
     }
 
     private void create(){
-        String url2 = url.getText().toString();
+        String link2 = url.getText().toString();
         String title2 = title.getText().toString();
         String description2 = description.getText().toString();
-        PlaceInformation lugar = new PlaceInformation(url2, title2, description2);
-        if (url2 != "" && title2 != "" && description2 != ""){
+        PlaceInformation lugar = new PlaceInformation(link2, title2, description2);
+        if (link2 != "" && title2 != "" && description2 != ""){
             databaseReference.child("Lugares").child(title2).setValue(lugar);
             Toast.makeText(getActivity(), "Lugar cargado a base de datos", Toast.LENGTH_SHORT).show();
         }
+        loadImages();
     }
 
 }
