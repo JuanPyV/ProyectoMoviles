@@ -1,6 +1,7 @@
 package com.example.aplicacioncitaconmemin;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,6 +65,7 @@ public class FragmentHome extends Fragment {
 
     private ViewPager viewPager;
     private Adapter adapter;
+    private FirebaseDatabase firebaseDatabase;
 
     @Nullable
     @Override
@@ -91,19 +94,19 @@ public class FragmentHome extends Fragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                updateInfo();
             }
         });
         delete = v.findViewById(R.id.delete);
+        Log.wtf("a", "CREANDO");
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                deleteImage();
             }
         });
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
         loadImages();
         return v;
     }
@@ -113,22 +116,20 @@ public class FragmentHome extends Fragment {
         titles.clear();
         descriptions.clear();
         DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference().child("Lugares");
-        databaseReference2.addValueEventListener(new ValueEventListener() {
+        databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.wtf("tagsito", "CARGANDO");
                 for (DataSnapshot objDataSnapshot : dataSnapshot.getChildren()){
-                    System.out.println(objDataSnapshot.getKey() + " llave");
+                    //System.out.println(objDataSnapshot.getKey() + " llave");
                     PlaceInformation placeInformation = objDataSnapshot.getValue(PlaceInformation.class);
                     imageUrls.add(placeInformation.getLink());
-                     //null porque????
                     titles.add(placeInformation.getTitle());
                     descriptions.add(placeInformation.getDescription());
-                    System.out.println(placeInformation.getLink() + "location");
-                    System.out.println(placeInformation.getTitle() + "titulo");
-                    System.out.println(placeInformation.getDescription() + "descripcion"); //aparece correcto
-
-
-                    System.out.println("añadiendo 1 lugar");
+                    //System.out.println(placeInformation.getLink() + "location");
+                    //System.out.println(placeInformation.getTitle() + "titulo");
+                    //System.out.println(placeInformation.getDescription() + "descripcion"); //aparece correcto
+                    //System.out.println("añadiendo 1 lugar");
                 }
                 String[] imageUrls2 = imageUrls.toArray(new String[0]);
                 String[] titles2 = titles.toArray(new String[0]);
@@ -153,8 +154,62 @@ public class FragmentHome extends Fragment {
         if (link2 != "" && title2 != "" && description2 != ""){
             databaseReference.child("Lugares").child(title2).setValue(lugar);
             Toast.makeText(getActivity(), "Lugar cargado a base de datos", Toast.LENGTH_SHORT).show();
+        } else{
+            Toast.makeText(getActivity(), "Te falta un algo dato", Toast.LENGTH_SHORT).show();
         }
         loadImages();
     }
+
+    private void deleteImage(){
+        DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference().child("Lugares");
+        databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.wtf("tagsito", "BORRANDO");
+                int i = 0;
+                for (DataSnapshot objDataSnapshot : dataSnapshot.getChildren()){
+                    if (viewPager.getCurrentItem() == i){
+                        objDataSnapshot.getRef().removeValue();
+                    }
+                    i++;
+
+                }
+                loadImages();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void updateInfo(){
+        DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference().child("Lugares");
+        databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.wtf("tagsito", "UPDATEANDO");
+                int i = 0;
+                for (DataSnapshot objDataSnapshot : dataSnapshot.getChildren()){
+                    String link2 = url.getText().toString();
+                    String title2 = title.getText().toString();
+                    String description2 = description.getText().toString();
+                    if (link2 != "" && title2 != "" && description2 != ""){
+                        PlaceInformation placeInformation = new PlaceInformation(link2, title2, description2);
+                        objDataSnapshot.getRef().setValue(placeInformation);
+                    }
+
+                }
+                loadImages();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
 }
