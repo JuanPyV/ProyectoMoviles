@@ -12,30 +12,23 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Adapter extends PagerAdapter {
-
     private Context context;
     private LayoutInflater layoutInflater;
-    private ArrayList<String> imageUrls;
-    private ArrayList<String> titles;
-    private ArrayList<String> descriptions;
+    private String[] imageUrls;
+    private String[] titles;
+    private String[] descriptions;
 
-    private boolean doNotifyDataSetChangedOnce = false;
-
-    Adapter(Context context, ArrayList<String> imageUrls, ArrayList<String> titles, ArrayList<String> descriptions){
+    Adapter(Context context, String[] imageUrls, String[] titles, String[] descriptions){
         this.context = context;
         this.imageUrls = imageUrls;
         this.titles = titles;
         this.descriptions = descriptions;
     }
 
-
     @Override
     public int getCount() {
-        return imageUrls.size();
+        return imageUrls.length;
     }
 
     @Override
@@ -46,8 +39,6 @@ public class Adapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        notifyDataSetChanged();
-
         layoutInflater = layoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.item,container,false);
         ImageView imageView;
@@ -58,10 +49,10 @@ public class Adapter extends PagerAdapter {
         title = view.findViewById(R.id.title);
         description = view.findViewById(R.id.description);
 
-        Picasso.get().load(imageUrls.get(position)).fit().centerCrop().into(imageView);
-        title.setText(titles.get(position));
-        description.setText(descriptions.get(position));
-        container.addView(view,position);
+        Picasso.get().load(imageUrls[position]).fit().centerCrop().into(imageView);
+        title.setText(titles[position]);
+        description.setText(descriptions[position]);
+        container.addView(view,0);
         return view;
 
 
@@ -69,7 +60,6 @@ public class Adapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        notifyDataSetChanged();
         container.removeView((View)object);
     }
 }

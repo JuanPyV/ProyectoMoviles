@@ -117,10 +117,21 @@ public class FragmentHome extends Fragment {
                 for (DataSnapshot objDataSnapshot : dataSnapshot.getChildren()){
                     PlaceInformation placeInformation = objDataSnapshot.getValue(PlaceInformation.class);
                     imageUrls.add(placeInformation.getURL());
+                     //null porque????
                     titles.add(placeInformation.getTitle());
                     descriptions.add(placeInformation.getDescription());
+                    System.out.println(placeInformation.getURL() + "location");
+                    System.out.println(placeInformation.getTitle() + "titulo");
+                    System.out.println(placeInformation.getDescription() + "descripcion"); //aparece correcto
+
+
                     System.out.println("añadiendo 1 lugar");
                 }
+                String[] imageUrls2 = imageUrls.toArray(new String[0]);
+                String[] titles2 = titles.toArray(new String[0]);
+                String[] descriptions2 = descriptions.toArray(new String[0]);
+                adapter = new Adapter(getActivity(),imageUrls2,titles2,descriptions2);
+                viewPager.setAdapter(adapter);
             }
 
             @Override
@@ -128,8 +139,6 @@ public class FragmentHome extends Fragment {
 
             }
         });
-        adapter = new Adapter(getActivity(),imageUrls,titles,descriptions);
-        viewPager.setAdapter(adapter);
 
     }
 
