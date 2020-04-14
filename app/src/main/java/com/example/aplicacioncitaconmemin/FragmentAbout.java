@@ -52,7 +52,7 @@ public class FragmentAbout extends Fragment {
 
     private void searchByLocation(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = database.getReference();
+        DatabaseReference databaseReference = database.getReference().child("Users");
         final String searchLocation = location.getText().toString().toLowerCase();
         //System.out.println(searchLocation);
         final List<String> users = new ArrayList<String>();
