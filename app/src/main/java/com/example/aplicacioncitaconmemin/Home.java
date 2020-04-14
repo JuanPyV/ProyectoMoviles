@@ -32,16 +32,16 @@ public class Home extends AppCompatActivity {
         meo.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {
-                Toast.makeText(getApplicationContext(),"Clicked item"+item.getId(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"Clicked item"+item.getId(),Toast.LENGTH_SHORT).show();
                 if(item.getId() == ID_HOME ){
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
-                    Log.wtf("Abri", "Abri el home");
+                    //Log.wtf("Abri", "Abri el home");
                 }else if(item.getId() == ID_LOGIN){
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentLogIn()).commit();
-                    Log.wtf("Abri", "Abri el login");
+                    //Log.wtf("Abri", "Abri el login");
                 }else if(item.getId() == ID_ABOUT){
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentAbout()).commit();
-                    Log.wtf("Abri", "Abri el about");
+                    //Log.wtf("Abri", "Abri el about");
                 }
             }
         });

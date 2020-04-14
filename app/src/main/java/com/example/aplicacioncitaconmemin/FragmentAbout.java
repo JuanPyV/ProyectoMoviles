@@ -56,7 +56,7 @@ public class FragmentAbout extends Fragment {
         final String searchLocation = location.getText().toString().toLowerCase();
         //System.out.println(searchLocation);
         final List<String> users = new ArrayList<String>();
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot objDataSnapshot : dataSnapshot.getChildren()){
