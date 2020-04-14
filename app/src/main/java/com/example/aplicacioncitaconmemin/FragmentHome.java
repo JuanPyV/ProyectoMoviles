@@ -195,7 +195,7 @@ public class FragmentHome extends Fragment {
                     String link2 = url.getText().toString();
                     String title2 = title.getText().toString();
                     String description2 = description.getText().toString();
-                    if (link2 != "" && title2 != "" && description2 != ""){
+                    if (link2 != "" && title2 != "" && description2 != "" && i == viewPager.getCurrentItem()){
                         PlaceInformation placeInformation = new PlaceInformation(link2, title2, description2);
                         objDataSnapshot.getRef().setValue(placeInformation);
                     }
