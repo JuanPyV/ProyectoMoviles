@@ -199,7 +199,8 @@ public class FragmentHome extends Fragment {
                         PlaceInformation placeInformation = new PlaceInformation(link2, title2, description2);
                         objDataSnapshot.getRef().setValue(placeInformation);
                     }
-
+                    
+                    i++;
                 }
                 loadImages();
             }
