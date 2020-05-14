@@ -14,6 +14,7 @@ public class Home extends AppCompatActivity {
     private final static int ID_HOME=1;
     private final static int ID_LOGIN=2;
     private final static int ID_ABOUT=3;
+    private final static int ID_MAP=4;
 
 
 
@@ -27,6 +28,7 @@ public class Home extends AppCompatActivity {
         meo.add(new MeowBottomNavigation.Model(2,R.drawable.home));
         meo.add(new MeowBottomNavigation.Model(1,R.drawable.login));
         meo.add(new MeowBottomNavigation.Model(3,R.drawable.about));
+        meo.add(new MeowBottomNavigation.Model(4,R.drawable.home));
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
         meo.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
@@ -41,6 +43,9 @@ public class Home extends AppCompatActivity {
                     //Log.wtf("Abri", "Abri el login");
                 }else if(item.getId() == ID_ABOUT){
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentAbout()).commit();
+                    //Log.wtf("Abri", "Abri el about");
+                }else if(item.getId() == ID_MAP) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMap()).commit();
                     //Log.wtf("Abri", "Abri el about");
                 }
             }
