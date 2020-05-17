@@ -28,7 +28,7 @@ public class FragmentLogIn extends Fragment {
     private EditText lastName;
     private EditText location;
     private EditText age;
-    private Button submit;
+    private Button submit, friendB;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -45,7 +45,15 @@ public class FragmentLogIn extends Fragment {
         location = v.findViewById(R.id.location);
         age = v.findViewById(R.id.age);
         submit = v.findViewById(R.id.buttonSubmit);
+        friendB = v.findViewById(R.id.friends);
         System.out.println("estoy siendo creado");
+
+        friendB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,5 +100,9 @@ public class FragmentLogIn extends Fragment {
         Toast.makeText(getActivity(), "Informacion actualizada!", Toast.LENGTH_SHORT).show();
     }
 
+    public void openDialog(){
+        FriendDialog friendDialog = new FriendDialog();
+        friendDialog.show(getFragmentManager(), "friend dialog");
+    }
 
 }
