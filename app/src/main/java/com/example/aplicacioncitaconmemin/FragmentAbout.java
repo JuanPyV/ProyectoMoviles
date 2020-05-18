@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,7 +58,13 @@ public class FragmentAbout extends Fragment {
            @Override
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                FriendInformation item = adapter.getItem(position);
-               updateFriendList(item.getUID()); //añadir amigo
+               if (!item.getUID().equals(user.getUid())){
+                   //añadir amigo
+                   updateFriendList(item.getUID());
+               } else{
+                   Toast.makeText(getActivity(), "No puedes añadirte a ti mismo como amigo", Toast.LENGTH_SHORT).show();
+               }
+
            }
        });
 
@@ -86,8 +93,9 @@ public class FragmentAbout extends Fragment {
                     Log.wtf("compare", "COMPARANDO UID DE AMIGO: " + friendUID + " con UID: " + objDataSnapshot.getKey());
                     if (friendUID.equals(objDataSnapshot.getKey())){
                         UserInformation friendUserInformation = objDataSnapshot.getValue(UserInformation.class);
-                        if (lista.size() == 0){
+                        if (lista.size() == 0){ //en el caso de que sea la primera 
                             lista.add(friendUserInformation);
+                            Toast.makeText(getActivity(), "Amigo añadido exitosamente", Toast.LENGTH_SHORT).show();
                         } else{
                             int flag = 0;
                             for (int i = 0; i < lista.size(); i++){
@@ -97,6 +105,9 @@ public class FragmentAbout extends Fragment {
                             }
                             if (flag == 0){
                                 lista.add(friendUserInformation);
+                                Toast.makeText(getActivity(), "Amigo añadido exitosamente", Toast.LENGTH_SHORT).show();
+                            } else{
+                                Toast.makeText(getActivity(), "Esta persona ya es tu amiga", Toast.LENGTH_SHORT).show();
                             }
                         }
                         databaseReference.child(user.getUid()).child("Friends").setValue(lista);
@@ -129,10 +140,8 @@ public class FragmentAbout extends Fragment {
                     //adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, users);  viejo adaptaer
                     adapter = new ArrayAdapter<FriendInformation>(getActivity(), android.R.layout.simple_list_item_1, users2);
                     information.setAdapter(adapter);
-
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -140,6 +149,4 @@ public class FragmentAbout extends Fragment {
         });
 
     }
-
-
 }
