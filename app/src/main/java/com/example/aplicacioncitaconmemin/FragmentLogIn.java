@@ -32,7 +32,6 @@ public class FragmentLogIn extends Fragment {
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase firebaseDatabase;
     private FirebaseUser user;
 
 
@@ -94,7 +93,7 @@ public class FragmentLogIn extends Fragment {
         String lastName2 = lastName.getText().toString().toLowerCase();
         String location2 = location.getText().toString().toLowerCase();
         String age2 = age.getText().toString().toLowerCase();
-        UserInformation info = new UserInformation(username2, location2, firstName2, lastName2, age2);
+        UserInformation info = new UserInformation(username2, location2, firstName2, lastName2, age2, user.getUid());
         FirebaseUser user = firebaseAuth.getCurrentUser();
         databaseReference.child(user.getUid()).setValue(info);
         Toast.makeText(getActivity(), "Informacion actualizada!", Toast.LENGTH_SHORT).show();

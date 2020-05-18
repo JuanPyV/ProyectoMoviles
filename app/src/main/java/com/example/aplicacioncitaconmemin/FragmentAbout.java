@@ -1,9 +1,12 @@
 package com.example.aplicacioncitaconmemin;
 
+import android.content.ClipData;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,17 +22,22 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class FragmentAbout extends Fragment {
 
     private EditText location;
     private ListView information;
     private Button search;
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<FriendInformation> adapter;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser user;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,34 +45,89 @@ public class FragmentAbout extends Fragment {
        location = v.findViewById(R.id.location);
        information = v.findViewById(R.id.peopleData);
        search = v.findViewById((R.id.search));
-
+       firebaseAuth = FirebaseAuth.getInstance();
+       user = firebaseAuth.getCurrentUser();
        search.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                searchByLocation();
            }
        });
-
+       information.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               FriendInformation item = adapter.getItem(position);
+               updateFriendList(item.getUID()); //añadir amigo
+           }
+       });
 
 
         return v;
+    }
+
+    private void updateFriendList(final String friendUID){
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReference = database.getReference().child("Users");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //obteniendo informacion de usuario activo para modificarla
+                GenericTypeIndicator<List<UserInformation>> t = new GenericTypeIndicator<List<UserInformation>>() {
+                    @Override
+                    public int hashCode() {
+                        return super.hashCode();
+                    }
+                };
+                List<UserInformation> lista = dataSnapshot.child(user.getUid()).child("Friends").getValue(t);
+                if (lista == null){
+                    lista = new ArrayList<>();
+                }
+                for (DataSnapshot objDataSnapshot : dataSnapshot.getChildren()){
+                    Log.wtf("compare", "COMPARANDO UID DE AMIGO: " + friendUID + " con UID: " + objDataSnapshot.getKey());
+                    if (friendUID.equals(objDataSnapshot.getKey())){
+                        UserInformation friendUserInformation = objDataSnapshot.getValue(UserInformation.class);
+                        if (lista.size() == 0){
+                            lista.add(friendUserInformation);
+                        } else{
+                            int flag = 0;
+                            for (int i = 0; i < lista.size(); i++){
+                                if(lista.get(i).getUID().equals(friendUserInformation.getUID())){
+                                    flag++;
+                                }
+                            }
+                            if (flag == 0){
+                                lista.add(friendUserInformation);
+                            }
+                        }
+                        databaseReference.child(user.getUid()).child("Friends").setValue(lista);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void searchByLocation(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference().child("Users");
         final String searchLocation = location.getText().toString().toLowerCase();
-        //System.out.println(searchLocation);
-        final List<String> users = new ArrayList<String>();
+        //final List<String> users = new ArrayList<>(); viejo arraylist con string solamente
+        final List<FriendInformation> users2 = new ArrayList<>();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot objDataSnapshot : dataSnapshot.getChildren()){
                     UserInformation userInformation = objDataSnapshot.getValue(UserInformation.class);
                     if (userInformation.getLocation().equals(searchLocation)){
-                        users.add(userInformation.getUsername());
+                        //users.add(userInformation.getUsername()); viejo user
+                        users2.add(new FriendInformation(objDataSnapshot.getKey(), userInformation.getUsername()));
                     }
-                    adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, users);
+                    //adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, users);  viejo adaptaer
+                    adapter = new ArrayAdapter<FriendInformation>(getActivity(), android.R.layout.simple_list_item_1, users2);
                     information.setAdapter(adapter);
 
                 }
@@ -75,7 +138,6 @@ public class FragmentAbout extends Fragment {
 
             }
         });
-        //System.out.println(users.size() + " es el tamaño de coincidencias");
 
     }
 
