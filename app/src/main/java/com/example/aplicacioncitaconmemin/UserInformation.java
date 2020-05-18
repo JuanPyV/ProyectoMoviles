@@ -77,4 +77,8 @@ public class UserInformation {
     public void setPersonalInformation(String personalInformation) {
         this.personalInformation = personalInformation;
     }
+
+    public String toString(){
+        return username;
+    }
 }

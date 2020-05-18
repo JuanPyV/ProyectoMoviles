@@ -17,9 +17,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ListView
-            android:padding="16dp"
             android:id="@+id/friendList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="357dp"
+            android:layout_height="338dp"
+            android:padding="16dp" />
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

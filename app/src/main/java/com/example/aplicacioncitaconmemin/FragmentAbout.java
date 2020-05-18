@@ -93,7 +93,7 @@ public class FragmentAbout extends Fragment {
                     Log.wtf("compare", "COMPARANDO UID DE AMIGO: " + friendUID + " con UID: " + objDataSnapshot.getKey());
                     if (friendUID.equals(objDataSnapshot.getKey())){
                         UserInformation friendUserInformation = objDataSnapshot.getValue(UserInformation.class);
-                        if (lista.size() == 0){ //en el caso de que sea la primera 
+                        if (lista.size() == 0){ //en el caso de que sea la primera
                             lista.add(friendUserInformation);
                             Toast.makeText(getActivity(), "Amigo añadido exitosamente", Toast.LENGTH_SHORT).show();
                         } else{
