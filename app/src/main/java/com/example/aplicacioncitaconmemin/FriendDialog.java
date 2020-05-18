@@ -89,7 +89,6 @@ public class FriendDialog extends AppCompatDialogFragment {
                     usernames = new ArrayAdapter<UserInformation>(getActivity(), android.R.layout.simple_list_item_1, lista);
                     friends.setAdapter(usernames);
                 }
-
             }
 
             @Override
