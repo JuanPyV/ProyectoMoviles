@@ -28,6 +28,7 @@ public class FragmentLogIn extends Fragment {
     private EditText lastName;
     private EditText location;
     private EditText age;
+    private EditText bio;
     private Button submit, friendB;
 
     private DatabaseReference databaseReference;
@@ -43,6 +44,7 @@ public class FragmentLogIn extends Fragment {
         lastName = v.findViewById(R.id.lastname);
         location = v.findViewById(R.id.location);
         age = v.findViewById(R.id.age);
+        bio = v.findViewById(R.id.bio);
         submit = v.findViewById(R.id.buttonSubmit);
         friendB = v.findViewById(R.id.friends);
         System.out.println("estoy siendo creado");
@@ -75,6 +77,7 @@ public class FragmentLogIn extends Fragment {
                     lastName.setText(information.getLastName());
                     location.setText(information.getLocation());
                     age.setText(information.getAge());
+                    bio.setText(information.getPersonalInformation());
                 }
             }
             @Override
@@ -93,7 +96,8 @@ public class FragmentLogIn extends Fragment {
         String lastName2 = lastName.getText().toString().toLowerCase();
         String location2 = location.getText().toString().toLowerCase();
         String age2 = age.getText().toString().toLowerCase();
-        UserInformation info = new UserInformation(username2, location2, firstName2, lastName2, age2, user.getUid());
+        String bio2 = bio.getText().toString().toLowerCase();
+        UserInformation info = new UserInformation(username2, location2, firstName2, lastName2, age2, user.getUid(), bio2);
         FirebaseUser user = firebaseAuth.getCurrentUser();
         databaseReference.child(user.getUid()).setValue(info);
         Toast.makeText(getActivity(), "Informacion actualizada!", Toast.LENGTH_SHORT).show();

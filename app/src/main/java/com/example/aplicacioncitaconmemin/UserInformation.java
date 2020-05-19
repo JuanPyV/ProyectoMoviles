@@ -12,14 +12,14 @@ public class UserInformation {
     private String age;
     private String personalInformation;
 
-    public UserInformation(String username, String location, String firstName, String lastName, String age, String UID) {
+    public UserInformation(String username, String location, String firstName, String lastName, String age, String UID, String bio) {
         this.username = username;
         this.location = location;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.UID = UID;
-        this.personalInformation = null;
+        this.personalInformation = bio;
     }
 
     public UserInformation() {

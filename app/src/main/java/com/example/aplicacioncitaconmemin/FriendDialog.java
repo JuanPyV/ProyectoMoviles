@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,6 +55,7 @@ public class FriendDialog extends AppCompatDialogFragment {
                 String location = item.getLocation();
                 String age = item.getAge();
                 Log.wtf("tag", "Nombre: " + firstName + " Apellido: " + lastName + " Location: " + location + " Edad: " + age);
+                Toast.makeText(getActivity(), "Nombre: " + firstName + "  / Apellido: " + lastName + "  / Location: " + location + "  / Edad: " + age, Toast.LENGTH_LONG).show();
             }
         });
         builder.setView(v).setTitle("Friends")
