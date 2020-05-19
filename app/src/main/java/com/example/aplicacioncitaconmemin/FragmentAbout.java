@@ -92,7 +92,7 @@ public class FragmentAbout extends Fragment {
                 for (DataSnapshot objDataSnapshot : dataSnapshot.getChildren()){
                     Log.wtf("compare", "COMPARANDO UID DE AMIGO: " + friendUID + " con UID: " + objDataSnapshot.getKey());
                     if (friendUID.equals(objDataSnapshot.getKey())){
-                        UserInformation friendUserInformation = objDataSnapshot.getValue(UserInformation.class);
+                        UserInformation friendUserInformation = objDataSnapshot.child("UserInformation").getValue(UserInformation.class);
                         if (lista.size() == 0){ //en el caso de que sea la primera
                             lista.add(friendUserInformation);
                             Toast.makeText(getActivity(), "Amigo añadido exitosamente", Toast.LENGTH_SHORT).show();
@@ -110,6 +110,7 @@ public class FragmentAbout extends Fragment {
                                 Toast.makeText(getActivity(), "Esta persona ya es tu amiga", Toast.LENGTH_SHORT).show();
                             }
                         }
+                        Log.wtf("a", lista.size() + " tamaño de lista " + lista.get(0).getUsername());
                         databaseReference.child(user.getUid()).child("Friends").setValue(lista);
                     }
                 }
@@ -132,7 +133,7 @@ public class FragmentAbout extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot objDataSnapshot : dataSnapshot.getChildren()){
-                    UserInformation userInformation = objDataSnapshot.getValue(UserInformation.class);
+                    UserInformation userInformation = objDataSnapshot.child("UserInformation").getValue(UserInformation.class);
                     if (userInformation.getLocation().equals(searchLocation)){
                         //users.add(userInformation.getUsername()); viejo user
                         users2.add(new FriendInformation(objDataSnapshot.getKey(), userInformation.getUsername()));

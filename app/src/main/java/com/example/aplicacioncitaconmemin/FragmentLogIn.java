@@ -68,7 +68,7 @@ public class FragmentLogIn extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserInformation information = dataSnapshot.child(user.getUid()).getValue(UserInformation.class);
+                UserInformation information = dataSnapshot.child(user.getUid()).child("UserInformation").getValue(UserInformation.class);
                 System.out.println("intentando cargar datos");
                 if (information != null) {
                     System.out.println("el objeto no es nulo, cargando datos, tal vez sean vacios");
@@ -99,7 +99,7 @@ public class FragmentLogIn extends Fragment {
         String bio2 = bio.getText().toString().toLowerCase();
         UserInformation info = new UserInformation(username2, location2, firstName2, lastName2, age2, user.getUid(), bio2);
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        databaseReference.child(user.getUid()).setValue(info);
+        databaseReference.child(user.getUid()).child("UserInformation").setValue(info);
         Toast.makeText(getActivity(), "Informacion actualizada!", Toast.LENGTH_SHORT).show();
     }
 

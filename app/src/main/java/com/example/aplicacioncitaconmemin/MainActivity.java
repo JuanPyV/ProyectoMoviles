@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         username = findViewById(R.id.usernameInicio);
         pass = findViewById(R.id.passInicio);
+        if (username == null || pass == null){
+            Log.wtf("a", "e we, es null");
+        }
         mAuth = FirebaseAuth.getInstance();
 
     }
