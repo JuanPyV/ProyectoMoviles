@@ -51,7 +51,7 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
             holder.imgView_postPic.setVisibility(View.GONE);
         } else {
             holder.imgView_postPic.setVisibility(View.VISIBLE);
-            Picasso.get().load(modelFeed.getPostPicF()).into(holder.imgView_postPic);
+            Picasso.get().load(modelFeed.getPostPicF()).resize(960,640).centerCrop().into(holder.imgView_postPic);
             //glide.load(modelFeed.getPostPicF()).into(holder.imgView_postPic);
         }
     }
