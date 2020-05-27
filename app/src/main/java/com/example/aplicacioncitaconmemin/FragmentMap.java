@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,31 +83,31 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
     @Override
     public void onInfoWindowClick(Marker marker) {
         if(marker.equals(markerGdl)){
-            DialogInfoMap dialogInfoMap = new DialogInfoMap();
+            InfoMapDialog dialogInfoMap = new InfoMapDialog();
             dialogInfoMap.newInstance(marker.getTitle(),marker.getSnippet(),"https://picsum.photos/1280/720?random=1").show(getFragmentManager(), "infoMap dialog");
         }
         else if(marker.equals(markerMty)){
-            DialogInfoMap dialogInfoMap = new DialogInfoMap();
+            InfoMapDialog dialogInfoMap = new InfoMapDialog();
             dialogInfoMap.newInstance(marker.getTitle(),marker.getSnippet(),"https://picsum.photos/1280/720?random=2").show(getFragmentManager(), "infoMap dialog");
         }
         else if(marker.equals(markerCDMX)){
-            DialogInfoMap dialogInfoMap = new DialogInfoMap();
+            InfoMapDialog dialogInfoMap = new InfoMapDialog();
             dialogInfoMap.newInstance(marker.getTitle(),marker.getSnippet(),"https://picsum.photos/1280/720?random=3").show(getFragmentManager(), "infoMap dialog");
         }
         else if(marker.equals(markerAmeca)){
-            DialogInfoMap dialogInfoMap = new DialogInfoMap();
+            InfoMapDialog dialogInfoMap = new InfoMapDialog();
             dialogInfoMap.newInstance(marker.getTitle(),marker.getSnippet(),"https://picsum.photos/1280/720?random=4").show(getFragmentManager(), "infoMap dialog");
         }
         else if(marker.equals(markerColima)){
-            DialogInfoMap dialogInfoMap = new DialogInfoMap();
+            InfoMapDialog dialogInfoMap = new InfoMapDialog();
             dialogInfoMap.newInstance(marker.getTitle(),marker.getSnippet(),"https://picsum.photos/1280/720?random=5").show(getFragmentManager(), "infoMap dialog");
         }
         else if(marker.equals(markerPuebla)){
-            DialogInfoMap dialogInfoMap = new DialogInfoMap();
+            InfoMapDialog dialogInfoMap = new InfoMapDialog();
             dialogInfoMap.newInstance(marker.getTitle(),marker.getSnippet(),"https://picsum.photos/1280/720?random=6").show(getFragmentManager(), "infoMap dialog");
         }
         else if(marker.equals(markerMazatlan)){
-            DialogInfoMap dialogInfoMap = new DialogInfoMap();
+            InfoMapDialog dialogInfoMap = new InfoMapDialog();
             dialogInfoMap.newInstance(marker.getTitle(),marker.getSnippet(),"https://picsum.photos/1280/720?random=7").show(getFragmentManager(), "infoMap dialog");
         }
 

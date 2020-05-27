@@ -1,21 +1,18 @@
 package com.example.aplicacioncitaconmemin;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.example.aplicacioncitaconmemin.Feed.FragmentFeed;
 
 public class Home extends AppCompatActivity {
     MeowBottomNavigation meo;
-    private final static int ID_HOME=1;
-    private final static int ID_LOGIN=2;
-    private final static int ID_ABOUT=3;
-    private final static int ID_MAP=4;
-
+    private final static int ID_PLACES = 1;
+    private final static int ID_PERINFO = 2;
+    private final static int ID_PEOPLE = 3;
+    private final static int ID_MAP = 4;
 
 
     @Override
@@ -23,29 +20,29 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        meo=(MeowBottomNavigation)findViewById(R.id.bottom_nav);
+        meo = (MeowBottomNavigation) findViewById(R.id.bottom_nav);
 
-        meo.add(new MeowBottomNavigation.Model(2,R.drawable.home));
-        meo.add(new MeowBottomNavigation.Model(1,R.drawable.login));
-        meo.add(new MeowBottomNavigation.Model(3,R.drawable.about));
-        meo.add(new MeowBottomNavigation.Model(4,R.drawable.home));
+        meo.add(new MeowBottomNavigation.Model(2, R.drawable.avatar));
+        meo.add(new MeowBottomNavigation.Model(1, R.drawable.place));
+        meo.add(new MeowBottomNavigation.Model(3, R.drawable.human));
+        meo.add(new MeowBottomNavigation.Model(4, R.drawable.mexico));
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentPlaces()).commit();
         meo.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {
                 //Toast.makeText(getApplicationContext(),"Clicked item"+item.getId(),Toast.LENGTH_SHORT).show();
-                if(item.getId() == ID_HOME ){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
+                if (item.getId() == ID_PLACES) {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.exit_to_right, R.anim.enter_from_right).replace(R.id.fragment_container, new FragmentPlaces()).commit();
                     //Log.wtf("Abri", "Abri el home");
-                }else if(item.getId() == ID_LOGIN){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentLogIn()).commit();
+                } else if (item.getId() == ID_PERINFO) {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.exit_to_right, R.anim.enter_from_right).replace(R.id.fragment_container, new FragmentProfile()).commit();
                     //Log.wtf("Abri", "Abri el login");
-                }else if(item.getId() == ID_ABOUT){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentAbout()).commit();
+                } else if (item.getId() == ID_PEOPLE) {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.exit_to_right, R.anim.enter_from_right).replace(R.id.fragment_container, new FragmentFeed()).commit();
                     //Log.wtf("Abri", "Abri el about");
-                }else if(item.getId() == ID_MAP) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMap()).commit();
+                } else if (item.getId() == ID_MAP) {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.exit_to_right, R.anim.enter_from_right).replace(R.id.fragment_container, new FragmentMap()).commit();
                     //Log.wtf("Abri", "Abri el about");
                 }
             }
@@ -65,8 +62,6 @@ public class Home extends AppCompatActivity {
             }
         });
     }
-
-
 
 
 }
