@@ -5,6 +5,10 @@ public class ModelFeed {
     String nameF, statusF, dateF;
     int profilePicF, postPicF;
 
+    public ModelFeed(){
+        super();
+    }
+
     public ModelFeed(String nameF, String statusF, String dateF, int profilePicF, int postPicF){
         this.nameF = nameF;
         this.statusF = statusF;

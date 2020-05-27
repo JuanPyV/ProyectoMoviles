@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.aplicacioncitaconmemin.R;
 import com.example.aplicacioncitaconmemin.UserInformation;
@@ -32,6 +34,8 @@ public class FragmentFeed extends Fragment {
     AdapterFeed adapterFeed;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
+    private Button btnPost;
+    private EditText statusUpdateF;
 
 
     @Override
@@ -40,12 +44,19 @@ public class FragmentFeed extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_feed, container, false);
         recyclerView = v.findViewById(R.id.recyclerView);
+        btnPost = v.findViewById(R.id.btnPost);
+        statusUpdateF = v.findViewById(R.id.statusUpdateF);
+
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewPost();
+            }
+        });
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapterFeed = new AdapterFeed(getActivity(), modelFeedArrayList);
-        recyclerView.setAdapter(adapterFeed);
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -63,7 +74,7 @@ public class FragmentFeed extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserInformation userData = dataSnapshot.child("Users").child(user.getUid()).child("UserInformation").getValue(UserInformation.class);
                 java.util.Date date = new java.util.Date();
-                ModelFeed newPost = new ModelFeed(userData.getFirstName() + userData.getLastName() , "status", date.toString(),
+                ModelFeed newPost = new ModelFeed(userData.getFirstName() + userData.getLastName() , statusUpdateF.getText().toString(), date.toString(),
                         R.drawable.batman, 0);
                 GenericTypeIndicator<List<ModelFeed>> t = new GenericTypeIndicator<List<ModelFeed>>() {
                     @Override
@@ -79,7 +90,10 @@ public class FragmentFeed extends Fragment {
                     lista.add(newPost);
                 }
                 databaseReference.child("Posts").setValue(lista);
+                populateRecyclerView();
+                statusUpdateF.setText("");
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -90,6 +104,7 @@ public class FragmentFeed extends Fragment {
     }
 
     public void populateRecyclerView() {
+        modelFeedArrayList = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference().child("Posts");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -103,11 +118,13 @@ public class FragmentFeed extends Fragment {
                 };
                 List<ModelFeed> lista = dataSnapshot.getValue(t);
                 if (lista != null){
-                    for (int i = 0; i < lista.size(); i++){
+                    for (int i = lista.size() - 1; i >= 0; i--){
                         ModelFeed newItem = lista.get(i);
                         modelFeedArrayList.add(newItem);
                     }
-                    adapterFeed.notifyDataSetChanged();
+                    //adapterFeed.notifyDataSetChanged();
+                    adapterFeed = new AdapterFeed(getActivity(), modelFeedArrayList);
+                    recyclerView.setAdapter(adapterFeed);
                 }
             }
 
@@ -116,6 +133,7 @@ public class FragmentFeed extends Fragment {
 
             }
         });
+        /*
         java.util.Date date=new java.util.Date();
         ModelFeed modelFeed = new ModelFeed("Sajin Maharjan","The cars we drive say a lot about us." , date.toString(),
                 R.drawable.batman, R.drawable.img_post1);
@@ -128,7 +146,7 @@ public class FragmentFeed extends Fragment {
         modelFeed = new ModelFeed("Lakshya Ram", "That reflection!!!", date.toString(),
                 R.drawable.charlie_chaplin, R.drawable.img_post2);
         modelFeedArrayList.add(modelFeed);
-
         adapterFeed.notifyDataSetChanged();
+        */
     }
 }
