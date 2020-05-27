@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.aplicacioncitaconmemin.R;
 import com.example.aplicacioncitaconmemin.UserInformation;
@@ -47,10 +48,43 @@ public class FragmentFeed extends Fragment {
         }
 
         @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+        public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
             if(direction == ItemTouchHelper.LEFT){
-                modelFeedArrayList.remove(viewHolder.getAdapterPosition());
-                adapterFeed.notifyDataSetChanged();
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final DatabaseReference databaseReference = database.getReference();
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        GenericTypeIndicator<List<ModelFeed>> t = new GenericTypeIndicator<List<ModelFeed>>() {
+                            @Override
+                            public int hashCode() {
+                                return super.hashCode();
+                            }
+                        };
+                        List<ModelFeed> lista = dataSnapshot.child("Posts").getValue(t);
+                        try{
+                            if (user.getUid().equals(lista.get(lista.size() - 1 - viewHolder.getAdapterPosition()).getUID())){
+                                lista.remove(lista.size() - 1 - viewHolder.getAdapterPosition());
+                                Toast.makeText(getActivity(), "Mensaje eliminado", Toast.LENGTH_SHORT).show();
+                            } else{
+                                Toast.makeText(getActivity(), "No puedes eliminar un mensaje que no es tuyo", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        databaseReference.child("Posts").setValue(lista);
+                        populateRecyclerView();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                //modelFeedArrayList.remove(viewHolder.getAdapterPosition());
+                //adapterFeed.notifyDataSetChanged();
+
             }else if(direction == ItemTouchHelper.RIGHT){
                 Log.wtf("edit", "EDITAR TEXTITO");
                 adapterFeed.notifyDataSetChanged();

@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class FragmentPeople extends Fragment {
 
@@ -132,7 +133,7 @@ public class FragmentPeople extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot objDataSnapshot : dataSnapshot.getChildren()){
                     UserInformation userInformation = objDataSnapshot.child("UserInformation").getValue(UserInformation.class);
-                    if (userInformation.getLocation().equals(searchLocation)){
+                    if (Pattern.matches(searchLocation + ".*", userInformation.getLocation())){
                         //users.add(userInformation.getUsername()); viejo user
                         users2.add(new FriendInformation(objDataSnapshot.getKey(), userInformation.getUsername()));
                     }
