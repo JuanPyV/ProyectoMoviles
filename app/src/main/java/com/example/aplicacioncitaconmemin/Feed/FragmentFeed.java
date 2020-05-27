@@ -1,12 +1,15 @@
 package com.example.aplicacioncitaconmemin.Feed;
 
+import android.content.ClipData;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +40,23 @@ public class FragmentFeed extends Fragment {
     private Button btnPost;
     private EditText statusUpdateF;
 
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            if(direction == ItemTouchHelper.LEFT){
+                modelFeedArrayList.remove(viewHolder.getAdapterPosition());
+                adapterFeed.notifyDataSetChanged();
+            }else if(direction == ItemTouchHelper.RIGHT){
+                Log.wtf("edit", "EDITAR TEXTITO");
+                adapterFeed.notifyDataSetChanged();
+        }}
+    };
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +77,7 @@ public class FragmentFeed extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
+        new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView);
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -75,7 +96,7 @@ public class FragmentFeed extends Fragment {
                 UserInformation userData = dataSnapshot.child("Users").child(user.getUid()).child("UserInformation").getValue(UserInformation.class);
                 java.util.Date date = new java.util.Date();
                 ModelFeed newPost = new ModelFeed(userData.getFirstName() + userData.getLastName() , statusUpdateF.getText().toString(), date.toString(),
-                        R.drawable.batman, 0);
+                        R.drawable.batman, 0, user.getUid());
                 GenericTypeIndicator<List<ModelFeed>> t = new GenericTypeIndicator<List<ModelFeed>>() {
                     @Override
                     public int hashCode() {
@@ -133,6 +154,7 @@ public class FragmentFeed extends Fragment {
 
             }
         });
+
         /*
         java.util.Date date=new java.util.Date();
         ModelFeed modelFeed = new ModelFeed("Sajin Maharjan","The cars we drive say a lot about us." , date.toString(),
