@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.example.aplicacioncitaconmemin.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -46,11 +47,12 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
 
         glide.load(modelFeed.getProfilePicF()).into(holder.imgView_proPic);
 
-        if (modelFeed.getPostPicF() == 0) {
+        if (modelFeed.getPostPicF().equals("")) {
             holder.imgView_postPic.setVisibility(View.GONE);
         } else {
             holder.imgView_postPic.setVisibility(View.VISIBLE);
-            glide.load(modelFeed.getPostPicF()).into(holder.imgView_postPic);
+            Picasso.get().load(modelFeed.getPostPicF()).into(holder.imgView_postPic);
+            //glide.load(modelFeed.getPostPicF()).into(holder.imgView_postPic);
         }
     }
 
