@@ -1,9 +1,12 @@
 package com.example.aplicacioncitaconmemin.Feed;
 
 import android.content.ClipData;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class FragmentFeed extends Fragment {
 
@@ -88,7 +93,25 @@ public class FragmentFeed extends Fragment {
             }else if(direction == ItemTouchHelper.RIGHT){
                 Log.wtf("edit", "EDITAR TEXTITO");
                 adapterFeed.notifyDataSetChanged();
-        }}
+
+            }
+        }
+
+        @Override
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                    .addSwipeLeftBackgroundColor(Color.RED)
+                    .addSwipeLeftActionIcon(R.drawable.ic_delete_sweep_black_24dp)
+                    .addSwipeLeftLabel("Borrar")
+                    .addSwipeRightBackgroundColor(Color.GREEN)
+                    .addSwipeRightActionIcon(R.drawable.ic_edit_black_24dp)
+                    .addSwipeRightLabel("Editar")
+                    .create()
+                    .decorate();
+
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        }
     };
 
 

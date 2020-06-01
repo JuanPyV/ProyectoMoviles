@@ -78,7 +78,7 @@ public class FragmentFriendList extends Fragment {
                 }
             }
 
-            @Override
+            @Overrides
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
