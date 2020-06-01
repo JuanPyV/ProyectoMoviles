@@ -122,7 +122,7 @@ public class FragmentPlaces extends Fragment {
                 for (DataSnapshot objDataSnapshot : dataSnapshot.getChildren()){
                     //System.out.println(objDataSnapshot.getKey() + " llave");
                     PlaceInformation placeInformation = objDataSnapshot.getValue(PlaceInformation.class);
-                    imageUrls.add(placeInformation.getLink());
+                    imageUrls.add(placeInformation.getImageLink());
                     titles.add(placeInformation.getTitle());
                     descriptions.add(placeInformation.getDescription());
                     //System.out.println(placeInformation.getLink() + "location");

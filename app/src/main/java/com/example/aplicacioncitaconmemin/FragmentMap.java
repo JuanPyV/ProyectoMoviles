@@ -2,11 +2,13 @@ package com.example.aplicacioncitaconmemin;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,13 +19,23 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClickListener,OnMapReadyCallback {
 
     GoogleMap map;
     MapView mapView;
+    private ArrayList<MarkerPlaceInformation> markers;
+    /*
     private Marker markerGdl;
     private Marker markerMty;
     private Marker markerCDMX;
@@ -31,6 +43,7 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
     private Marker markerColima;
     private Marker markerPuebla;
     private Marker markerMazatlan;
+    */
 
 
        @Override
@@ -44,7 +57,8 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
         mapView = v.findViewById(R.id.mapa);
-
+        markers = new ArrayList<>();
+        //loadIntoDatabaseDummy(); solo ejecutar si la base de datos esta vacia
         if(mapView != null){
             mapView.onCreate(null);
             mapView.onResume();
@@ -53,11 +67,67 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
         return v;
     }
 
+    public void loadIntoDatabaseDummy(){
+           //para poder cargar un dato al menos a la base de datos, cuando no exista ningun otro
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = database.getReference().child("Places");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<PlaceInformation> lista = new ArrayList<>();
+                lista.add(new PlaceInformation(
+                        20.6720375,
+                        -103.33893962,
+                        "Guadalajara",
+                        "https://picsum.photos/1280/720?random=1",
+                        "Ciudad de la Torta Ahogada",
+                        "Guadalajara, Jalisco"));
+                dataSnapshot.getRef().setValue(lista);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(Objects.requireNonNull(getActivity()));
         map = googleMap;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = database.getReference().child("Places");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                GenericTypeIndicator<List<PlaceInformation>> t = new GenericTypeIndicator<List<PlaceInformation>>() {
+                    @Override
+                    public int hashCode() {
+                        return super.hashCode();
+                    }
+                };
+                List<PlaceInformation> lugares = dataSnapshot.getValue(t);
+                if (lugares != null){
+                    for (int i = 0; i < lugares.size(); i++){
+                        LatLng place = new LatLng(lugares.get(i).getLatitude(), lugares.get(i).getLongitude());
+                        Marker placeMarker = map.addMarker(new MarkerOptions()
+                                .position(place)
+                                .title(lugares.get(i).getTitle())
+                                .snippet(lugares.get(i).getSnippet()));
+                        MarkerPlaceInformation markerPlaceInformation = new MarkerPlaceInformation(placeMarker, lugares.get(i));
+                        markers.add(markerPlaceInformation);
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        /*
         LatLng gdl = new LatLng(20.6720375, -103.33893962);
         LatLng mty = new LatLng(25.6802019, -100.3152586);
         LatLng cdmx = new LatLng(19.3205562, -99.1517011);
@@ -75,14 +145,25 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
         markerMazatlan = map.addMarker(new MarkerOptions().position(mazatlan).title("Prueba Mazatlan").snippet("Mazatlan, Sinaloa"));
 
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(cdmx,5));
-
+        */
         map.setOnInfoWindowClickListener(this);
 
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        if(marker.equals(markerGdl)){
+           for (int i = 0; i < markers.size(); i++){
+               if (markers.get(i).getMarker().equals(marker)){
+                   InfoMapDialog dialogInfoMap = new InfoMapDialog();
+                   PlaceInformation placeInformation = markers.get(i).getPlaceInformation();
+                   dialogInfoMap.newInstance(
+                           placeInformation.getTitle() + " Rating: " + placeInformation.getRating(),
+                           placeInformation.getSnippet(),
+                           placeInformation.getImageLink()).show(getFragmentManager(), "infoMap dialog");
+                   break;
+               }
+           }
+        /*if(marker.equals(markerGdl)){
             InfoMapDialog dialogInfoMap = new InfoMapDialog();
             dialogInfoMap.newInstance(marker.getTitle(),marker.getSnippet(),"https://picsum.photos/1280/720?random=1").show(getFragmentManager(), "infoMap dialog");
         }
@@ -110,6 +191,6 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
             InfoMapDialog dialogInfoMap = new InfoMapDialog();
             dialogInfoMap.newInstance(marker.getTitle(),marker.getSnippet(),"https://picsum.photos/1280/720?random=7").show(getFragmentManager(), "infoMap dialog");
         }
-
+        */
     }
 }
