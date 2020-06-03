@@ -55,7 +55,7 @@ public class InfoFriendDialog extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomAlertDialog);
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.layout_dialoginfofriend, null);
 
@@ -71,7 +71,7 @@ public class InfoFriendDialog extends AppCompatDialogFragment {
         age.setText(edad);
         ubic.setText(ubicacion);
 
-        builder.setView(v).setTitle(nombre);
+        builder.setView(v);
 
         return builder.create();
     }

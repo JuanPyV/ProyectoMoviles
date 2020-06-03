@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
-
     <color name="black">#000000</color>
     <color name="light_grey">#e4e4e4</color>
     <color name="grey">#8b8b8b</color>
@@ -11,5 +7,12 @@
     <color name="white">#FFFFFF</color>
     <color name="startorange">#ffa751</color>
     <color name="endorange">#ffe259</color>
+    <color name="delete">#ef5350</color>
+    <color name="edit">#26a69a</color>
+    <color name="address">#92622F</color>
+    <color name="solidCircle">#AAFFFFFF</color>
+    <color name="circleBorder">#50FFFFFF</color>
+    <color name="headings">#CF8037</color>
+    <color name="greyb">#E5E5E5</color>
 
 </resources>

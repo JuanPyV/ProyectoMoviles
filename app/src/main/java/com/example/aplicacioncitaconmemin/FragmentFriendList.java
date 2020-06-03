@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,7 +28,8 @@ import java.util.List;
 public class FragmentFriendList extends Fragment {
 
     private ListView friends;
-    private ArrayAdapter<UserInformation> usernames;
+    //private ArrayAdapter<UserInformation> usernames;
+    private FriendAdapter adapter;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
 
@@ -44,13 +44,13 @@ public class FragmentFriendList extends Fragment {
         friends.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                UserInformation item = usernames.getItem(position);
+                UserInformation item = adapter.getItem(position);
                 String firstName = item.getFirstName();
                 String lastName = item.getLastName();
                 String location = item.getLocation();
                 String age = item.getAge();
                 InfoFriendDialog infoFriendDialog = new InfoFriendDialog();
-                infoFriendDialog.newInstance(firstName,lastName,location,age, "https://picsum.photos/1280/720?random=1").show(getFragmentManager(), "infoFriend dialog");
+                infoFriendDialog.newInstance(firstName,lastName,location,age, "https://picsum.photos/65/65?random=1").show(getFragmentManager(), "infoFriend dialog");
                 Log.wtf("tag", "Nombre: " + firstName + " Apellido: " + lastName + " Location: " + location + " Edad: " + age);
                 Toast.makeText(getActivity(), "Nombre: " + firstName + "  / Apellido: " + lastName + "  / Location: " + location + "  / Edad: " + age, Toast.LENGTH_LONG).show();
             }
@@ -73,8 +73,9 @@ public class FragmentFriendList extends Fragment {
                 };
                 List<UserInformation> lista = dataSnapshot.child(user.getUid()).child("Friends").getValue(t);
                 if (lista != null){
-                    usernames = new ArrayAdapter<UserInformation>(getActivity(), android.R.layout.simple_list_item_1, lista);
-                    friends.setAdapter(usernames);
+                    adapter = new FriendAdapter(getActivity(), lista);
+                    //usernames = new ArrayAdapter<UserInformation>(getActivity(), android.R.layout.simple_expandable_list_item_1, lista);
+                    friends.setAdapter(adapter);
                 }
             }
 

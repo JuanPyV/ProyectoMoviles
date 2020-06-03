@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,7 +43,7 @@ public class FragmentPeople extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_people,container,false);
+        final View v = inflater.inflate(R.layout.fragment_people,container,false);
        location = v.findViewById(R.id.location);
        information = v.findViewById(R.id.peopleData);
        search = v.findViewById((R.id.search));
@@ -106,7 +108,7 @@ public class FragmentPeople extends Fragment {
                                 lista.add(friendUserInformation);
                                 Toast.makeText(getActivity(), "Amigo añadido exitosamente", Toast.LENGTH_SHORT).show();
                             } else{
-                                Toast.makeText(getActivity(), "Esta persona ya es tu amiga", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Esta persona ya es tu amig@", Toast.LENGTH_SHORT).show();
                             }
                         }
                         Log.wtf("a", lista.size() + " tamaño de lista " + lista.get(0).getUsername());

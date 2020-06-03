@@ -1,6 +1,7 @@
 package com.example.aplicacioncitaconmemin.Feed;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.aplicacioncitaconmemin.MainActivity;
 import com.example.aplicacioncitaconmemin.R;
 import com.example.aplicacioncitaconmemin.UserInformation;
 import com.google.firebase.auth.FirebaseAuth;
@@ -101,10 +103,10 @@ public class FragmentFeed extends Fragment {
         public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
 
             new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    .addSwipeLeftBackgroundColor(Color.RED)
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getActivity(), R.color.delete))
                     .addSwipeLeftActionIcon(R.drawable.ic_delete_sweep_black_24dp)
                     .addSwipeLeftLabel("Borrar")
-                    .addSwipeRightBackgroundColor(Color.GREEN)
+                    .addSwipeRightBackgroundColor(ContextCompat.getColor(getActivity(), R.color.edit))
                     .addSwipeRightActionIcon(R.drawable.ic_edit_black_24dp)
                     .addSwipeRightLabel("Editar")
                     .create()

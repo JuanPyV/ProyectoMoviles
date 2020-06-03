@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFEB3B"
-    android:padding="16dp">
+    android:paddingTop="16dp">
 
-    <ScrollView
+    <com.xw.repo.widget.BounceScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,7 +17,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent">
@@ -26,13 +25,13 @@
             <ListView
                 android:id="@+id/friendList"
                 android:layout_width="match_parent"
-                android:layout_height="338dp"
+                android:layout_height="550dp"
                 android:padding="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </com.xw.repo.widget.BounceScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
