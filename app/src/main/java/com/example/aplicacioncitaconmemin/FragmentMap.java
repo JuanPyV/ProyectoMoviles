@@ -8,17 +8,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,7 +61,19 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
             mapView.onCreate(null);
             mapView.onResume();
             mapView.getMapAsync(this);
+
         }
+        FloatingActionButton fab = v.findViewById(R.id.fabAdd);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
+                InfoPlaceDialog place = new InfoPlaceDialog();
+                place.show(getFragmentManager(), "place");
+            }
+        });
+
         return v;
     }
 
@@ -193,4 +203,5 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
         }
         */
     }
+
 }

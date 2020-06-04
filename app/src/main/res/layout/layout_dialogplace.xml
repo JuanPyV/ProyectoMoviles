@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#000000"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <ImageView
+        android:id="@+id/imageButton2close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#000000"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        android:focusable="true" />
+
+    <com.xw.repo.widget.BounceScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="15dp"
+                android:text="Add Place"
+                android:textSize="32dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/placeTitleBox"
+                style="@style/TextInputLayout"
+                android:layout_width="310dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:hint="Title">
+
+                <EditText
+                    android:id="@+id/placeTitle"
+                    android:layout_width="310dp"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/placeDescriptionBox"
+                style="@style/TextInputLayout"
+                android:layout_width="310dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:hint="Description">
+
+                <EditText
+                    android:id="@+id/placeDescription"
+                    android:layout_width="310dp"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/placeLonBox"
+                style="@style/TextInputLayout"
+                android:layout_width="310dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:hint="Longitude">
+
+                <EditText
+                    android:id="@+id/placeLon"
+                    android:layout_width="310dp"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/placeLatBox"
+                style="@style/TextInputLayout"
+                android:layout_width="310dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:hint="Latitude">
+
+                <EditText
+                    android:id="@+id/placeLat"
+                    android:layout_width="310dp"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/placeSnippetBox"
+                style="@style/TextInputLayout"
+                android:layout_width="310dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:hint="Snippet">
+
+                <EditText
+                    android:id="@+id/placeSnippet"
+                    android:layout_width="310dp"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/placeUrlBox"
+                style="@style/TextInputLayout"
+                android:layout_width="310dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:hint="Url">
+
+                <EditText
+                    android:id="@+id/placeUrl"
+                    android:layout_width="310dp"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Button" />
+
+        </LinearLayout>
+    </com.xw.repo.widget.BounceScrollView>
+</RelativeLayout>
