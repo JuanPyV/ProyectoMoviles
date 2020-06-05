@@ -1,10 +1,14 @@
 package com.example.aplicacioncitaconmemin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlaceInformation {
 
 
     private double latitude, longitude, rating;
     private String title, imageLink, description, snippet;
+    private List<PersonRating> personRatings;
 
     public PlaceInformation(String URL, String title2, String description2) {
         this.imageLink = URL;
@@ -20,10 +24,19 @@ public class PlaceInformation {
         this.description = description;
         this.snippet = snippet;
         this.rating = 0;
+
     }
 
     public PlaceInformation(){
 
+    }
+
+    public List<PersonRating> getPersonRatings() {
+        return personRatings;
+    }
+
+    public void setPersonRatings(List<PersonRating> personRatings) {
+        this.personRatings = personRatings;
     }
 
     public double getRating() {

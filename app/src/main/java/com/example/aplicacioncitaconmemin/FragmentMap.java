@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -166,11 +167,21 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
                if (markers.get(i).getMarker().equals(marker)){
                    InfoMapDialog dialogInfoMap = new InfoMapDialog();
                    PlaceInformation placeInformation = markers.get(i).getPlaceInformation();
+                   double average = 0;
+                   if (placeInformation.getPersonRatings() != null){
+                        for (int j = 0; j < placeInformation.getPersonRatings().size(); j++){
+                            average += placeInformation.getPersonRatings().get(j).getRating();
+                        }
+                        average /= placeInformation.getPersonRatings().size();
+                   }
+                   Log.wtf("calificacion", "el rating es de: " + average);
                    dialogInfoMap.newInstance(
                            placeInformation.getTitle(),
                            placeInformation.getSnippet(),
-                           placeInformation.getRating() + "",
-                           placeInformation.getImageLink()).show(getFragmentManager(), "infoMap dialog");
+                           average,
+                           placeInformation.getImageLink(),
+                           placeInformation.getLatitude(),
+                           placeInformation.getLongitude()).show(getFragmentManager(), "infoMap dialog");
                    break;
                }
            }
