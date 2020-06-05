@@ -65,7 +65,7 @@ public class InfoFriendDialog extends AppCompatDialogFragment {
         age = v.findViewById(R.id.age);
         placeImage = v.findViewById(R.id.placeImage);
 
-        Picasso.get().load(url).into(placeImage);
+        Picasso.get().load(url).error(R.drawable.charlie_chaplin).into(placeImage);
         name.setText(nombre);
         lname.setText(apellido);
         age.setText(edad);

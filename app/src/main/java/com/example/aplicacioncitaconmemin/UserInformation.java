@@ -11,6 +11,7 @@ public class UserInformation {
     private String lastName;
     private String age;
     private String personalInformation;
+    private String profilePicURL;
 
     public UserInformation(String username, String location, String firstName, String lastName, String age, String UID, String bio) {
         this.username = username;
@@ -20,10 +21,19 @@ public class UserInformation {
         this.age = age;
         this.UID = UID;
         this.personalInformation = bio;
+        this.profilePicURL = "";
     }
 
     public UserInformation() {
 
+    }
+
+    public String getProfilePicURL() {
+        return profilePicURL;
+    }
+
+    public void setProfilePicURL(String profilePicURL) {
+        this.profilePicURL = profilePicURL;
     }
 
     public String getUsername() {

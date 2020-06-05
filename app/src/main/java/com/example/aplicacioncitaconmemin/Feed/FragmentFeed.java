@@ -156,7 +156,7 @@ public class FragmentFeed extends Fragment {
                 UserInformation userData = dataSnapshot.child("Users").child(user.getUid()).child("UserInformation").getValue(UserInformation.class);
                 java.util.Date date = new java.util.Date();
                 ModelFeed newPost = new ModelFeed(userData.getFirstName() + userData.getLastName() , statusUpdateF.getText().toString(), date.toString(),
-                        R.drawable.batman, imageURL.getText().toString(), user.getUid());
+                        userData.getProfilePicURL() + "", imageURL.getText().toString() + "", user.getUid());
                 GenericTypeIndicator<List<ModelFeed>> t = new GenericTypeIndicator<List<ModelFeed>>() {
                     @Override
                     public int hashCode() {

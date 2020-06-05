@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -49,9 +50,10 @@ public class FragmentFriendList extends Fragment {
                 String lastName = item.getLastName();
                 String location = item.getLocation();
                 String age = item.getAge();
+                String url = item.getProfilePicURL() + "";
                 InfoFriendDialog infoFriendDialog = new InfoFriendDialog();
-                infoFriendDialog.newInstance(firstName,lastName,location,age, "https://picsum.photos/65/65?random=1").show(getFragmentManager(), "infoFriend dialog");
-                Log.wtf("tag", "Nombre: " + firstName + " Apellido: " + lastName + " Location: " + location + " Edad: " + age);
+                infoFriendDialog.newInstance(firstName,lastName,location,age, url).show(getFragmentManager(), "infoFriend dialog");
+                Log.wtf("tag", "Nombre: " + firstName + " Apellido: " + lastName + " Location: " + location + " Edad: " + age + " URL: " + url);
                 Toast.makeText(getActivity(), "Nombre: " + firstName + "  / Apellido: " + lastName + "  / Location: " + location + "  / Edad: " + age, Toast.LENGTH_LONG).show();
             }
         });
@@ -72,8 +74,23 @@ public class FragmentFriendList extends Fragment {
                     }
                 };
                 List<UserInformation> lista = dataSnapshot.child(user.getUid()).child("Friends").getValue(t);
+                /*
+                como anotacion:
+                guardabamos en la base de datos una instancia del objeto UserInformation en una lista que se almacenaba dentro del UID del usuario
+                que en cuestion estaba agregando a ese amigo, pero debido a que esa instancia de guardaba unicamente al añadir al amigo, lo que pasaba
+                es que los datos de esa persona, se quedaban fijos al momento de agregarla, de manera que si editaban cualquier parte de su informacion
+                esto no se mostraria en la lista de amigos. Idealmente, la solución sería únicamente almacenar el UID del amigo como referencia, pero
+                debido al tiempo restante dejaré que se guarden todos los datos.
+                 */
+                List<UserInformation> lista2 = new ArrayList<>();
                 if (lista != null){
-                    adapter = new FriendAdapter(getActivity(), lista);
+                    for (int i = 0; i < lista.size(); i++){
+                        String UID = lista.get(i).getUID();
+                        UserInformation friend = dataSnapshot.child(UID).child("UserInformation").getValue(UserInformation.class);
+                        lista2.add(friend);
+                    }
+                    //adapter = new FriendAdapter(getActivity(), lista); anterior, para corregir bug de url de imagen de amigo estatica al añadirlo
+                    adapter = new FriendAdapter(getActivity(), lista2);
                     //usernames = new ArrayAdapter<UserInformation>(getActivity(), android.R.layout.simple_expandable_list_item_1, lista);
                     friends.setAdapter(adapter);
                 }

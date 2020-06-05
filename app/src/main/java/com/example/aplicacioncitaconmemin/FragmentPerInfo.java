@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FragmentPerInfo extends Fragment {
     @Nullable
@@ -28,6 +32,7 @@ public class FragmentPerInfo extends Fragment {
     private TextView locationP;
     private TextView ageP;
     private TextView bioP;
+    private CircleImageView imageP;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -43,6 +48,7 @@ public class FragmentPerInfo extends Fragment {
         locationP = v.findViewById(R.id.locationP);
         ageP = v.findViewById(R.id.ageP);
         bioP = v.findViewById(R.id.bioP);
+        imageP = v.findViewById(R.id.imageP);
         System.out.println("estoy siendo creado");
 
 
@@ -63,6 +69,11 @@ public class FragmentPerInfo extends Fragment {
                     locationP.setText(information.getLocation());
                     ageP.setText(information.getAge());
                     bioP.setText(information.getPersonalInformation());
+                    try{
+                        Picasso.get().load(information.getProfilePicURL() + "").resize(94, 94).centerCrop().error(R.drawable.charlie_chaplin).into(imageP);
+                    } catch (IllegalArgumentException e){
+                        Picasso.get().load(R.drawable.charlie_chaplin).resize(94, 94).centerCrop().into(imageP);
+                    }
                 }
             }
             @Override

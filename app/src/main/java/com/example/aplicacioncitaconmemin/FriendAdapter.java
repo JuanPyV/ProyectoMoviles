@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 
@@ -35,7 +38,13 @@ public class FriendAdapter extends ArrayAdapter<UserInformation> {
         UserInformation friend = people.get(position);
 
         ImageView image = (ImageView)listItem.findViewById(R.id.imageView_profile);
-        image.setImageResource(R.drawable.batman);
+        //image.setImageResource(R.drawable.batman);
+        try{
+            Picasso.get().load(friend.getProfilePicURL() + "").resize(60, 60).centerCrop().error(R.drawable.charlie_chaplin).into(image);
+        } catch (IllegalArgumentException e){
+            Picasso.get().load(R.drawable.charlie_chaplin).resize(94, 94).centerCrop().into(image);
+        }
+
 
         TextView name = (TextView) listItem.findViewById(R.id.textView_name);
         name.setText(friend.getUsername());

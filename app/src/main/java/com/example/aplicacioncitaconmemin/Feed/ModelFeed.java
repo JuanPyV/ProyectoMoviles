@@ -2,14 +2,13 @@ package com.example.aplicacioncitaconmemin.Feed;
 
 public class ModelFeed {
 
-    String nameF, statusF, dateF, UID, postPicF;
-    int profilePicF;
+    String nameF, statusF, dateF, UID, postPicF, profilePicF;
 
     public ModelFeed(){
         super();
     }
 
-    public ModelFeed(String nameF, String statusF, String dateF, int profilePicF, String postPicF, String UID){
+    public ModelFeed(String nameF, String statusF, String dateF, String profilePicF, String postPicF, String UID){
         this.nameF = nameF;
         this.statusF = statusF;
         this.dateF = dateF;
@@ -42,11 +41,11 @@ public class ModelFeed {
         this.dateF = dateF;
     }
 
-    public int getProfilePicF() {
+    public String getProfilePicF() {
         return profilePicF;
     }
 
-    public void setProfilePicF(int profilePicF) {
+    public void setProfilePicF(String profilePicF) {
         this.profilePicF = profilePicF;
     }
 

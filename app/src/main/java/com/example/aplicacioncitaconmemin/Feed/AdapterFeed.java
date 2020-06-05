@@ -45,8 +45,14 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
         holder.tv_time.setText(modelFeed.getDateF());
         holder.tv_status.setText(modelFeed.getStatusF());
 
-        glide.load(modelFeed.getProfilePicF()).into(holder.imgView_proPic);
 
+        //glide.load(modelFeed.getProfilePicF()).into(holder.imgView_proPic);
+        if (modelFeed.getProfilePicF().equals("")){
+            glide.load(R.drawable.charlie_chaplin).into(holder.imgView_proPic);
+        } else{
+            holder.imgView_postPic.setVisibility(View.VISIBLE);
+            Picasso.get().load(modelFeed.getProfilePicF()).resize(45, 45).centerCrop().error(R.drawable.charlie_chaplin).into(holder.imgView_proPic);
+        }
         if (modelFeed.getPostPicF().equals("")) {
             holder.imgView_postPic.setVisibility(View.GONE);
         } else {

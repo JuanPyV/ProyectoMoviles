@@ -58,7 +58,9 @@ public class InfoMapDialog extends AppCompatDialogFragment {
         info = v.findViewById(R.id.info);
         placeImage = v.findViewById(R.id.placeImage);
 
-        Picasso.get().load(url).into(placeImage);
+        if (!url.equals("")){
+            Picasso.get().load(url).into(placeImage);
+        }
         info.setText(full_snippet);
 
         builder.setView(v).setTitle(title);

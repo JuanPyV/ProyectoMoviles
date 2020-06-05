@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View v){
+        Toast.makeText(MainActivity.this, "Iniciando sesión...", Toast.LENGTH_SHORT).show();
         signIn(username.getText().toString(), pass.getText().toString());
     }
 
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                Toast.makeText(MainActivity.this, "Bienvenido!", Toast.LENGTH_SHORT).show();
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "signInWithEmail:success");
