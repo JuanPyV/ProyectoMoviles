@@ -184,5 +184,6 @@
     <orderEntry type="library" name="Gradle: it.xabaras.android:recyclerview-swipedecorator:1.2.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.woxingxiao:BounceScrollView:1.5-androidx@aar" level="project" />
     <orderEntry type="library" name="Gradle: de.hdodenhof:circleimageview:3.1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.xw.repo:bubbleseekbar:3.20-lite@aar" level="project" />
   </component>
 </module>

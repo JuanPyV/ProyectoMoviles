@@ -167,8 +167,9 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
                    InfoMapDialog dialogInfoMap = new InfoMapDialog();
                    PlaceInformation placeInformation = markers.get(i).getPlaceInformation();
                    dialogInfoMap.newInstance(
-                           placeInformation.getTitle() + " Rating: " + placeInformation.getRating(),
+                           placeInformation.getTitle(),
                            placeInformation.getSnippet(),
+                           placeInformation.getRating() + "",
                            placeInformation.getImageLink()).show(getFragmentManager(), "infoMap dialog");
                    break;
                }
