@@ -46,15 +46,16 @@ public class FragmentFriendList extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 UserInformation item = adapter.getItem(position);
+                String username = item.getUsername();
                 String firstName = item.getFirstName();
                 String lastName = item.getLastName();
                 String location = item.getLocation();
                 String age = item.getAge();
                 String url = item.getProfilePicURL() + "";
                 InfoFriendDialog infoFriendDialog = new InfoFriendDialog();
-                infoFriendDialog.newInstance(firstName,lastName,location,age, url).show(getFragmentManager(), "infoFriend dialog");
+                infoFriendDialog.newInstance(username, firstName,lastName,location,age, url).show(getFragmentManager(), "infoFriend dialog");
                 Log.wtf("tag", "Nombre: " + firstName + " Apellido: " + lastName + " Location: " + location + " Edad: " + age + " URL: " + url);
-                Toast.makeText(getActivity(), "Nombre: " + firstName + "  / Apellido: " + lastName + "  / Location: " + location + "  / Edad: " + age, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), "Nombre: " + firstName + "  / Apellido: " + lastName + "  / Location: " + location + "  / Edad: " + age, Toast.LENGTH_LONG).show();
             }
         });
 

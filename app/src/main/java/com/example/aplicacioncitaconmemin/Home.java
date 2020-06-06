@@ -23,11 +23,11 @@ public class Home extends AppCompatActivity {
         meo = (MeowBottomNavigation) findViewById(R.id.bottom_nav);
 
         meo.add(new MeowBottomNavigation.Model(2, R.drawable.avatar));
-        meo.add(new MeowBottomNavigation.Model(1, R.drawable.place));
+        //meo.add(new MeowBottomNavigation.Model(1, R.drawable.place));
         meo.add(new MeowBottomNavigation.Model(3, R.drawable.human));
         meo.add(new MeowBottomNavigation.Model(4, R.drawable.mexico));
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentPlaces()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentFeed()).commit();
         meo.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {
