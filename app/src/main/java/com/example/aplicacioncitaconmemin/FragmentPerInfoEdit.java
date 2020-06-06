@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FragmentPerInfoEdit extends Fragment {
     @Nullable
@@ -29,7 +33,9 @@ public class FragmentPerInfoEdit extends Fragment {
     private EditText location;
     private EditText age;
     private EditText bio;
+    private EditText photoEditURL;
     private Button submit;
+    private CircleImageView photo;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -46,7 +52,8 @@ public class FragmentPerInfoEdit extends Fragment {
         age = v.findViewById(R.id.age);
         bio = v.findViewById(R.id.bio);
         submit = v.findViewById(R.id.buttonSubmit);
-        System.out.println("estoy siendo creado");
+        photo = v.findViewById(R.id.photoEdit);
+        photoEditURL = v.findViewById(R.id.photoEditURL);
 
 
 
@@ -64,15 +71,21 @@ public class FragmentPerInfoEdit extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserInformation information = dataSnapshot.child(user.getUid()).child("UserInformation").getValue(UserInformation.class);
-                System.out.println("intentando cargar datos");
                 if (information != null) {
-                    System.out.println("el objeto no es nulo, cargando datos, tal vez sean vacios");
                     username.setText(information.getUsername());
                     firstName.setText(information.getFirstName());
                     lastName.setText(information.getLastName());
                     location.setText(information.getLocation());
                     age.setText(information.getAge());
                     bio.setText(information.getPersonalInformation());
+                    try{
+                        photoEditURL.setText(information.getProfilePicURL());
+                        Picasso.get().load(information.getProfilePicURL() + "").resize(94, 94).centerCrop().error(R.drawable.charlie_chaplin).into(photo);
+                    } catch (IllegalArgumentException e){
+                        Picasso.get().load(R.drawable.charlie_chaplin).resize(94, 94).centerCrop().into(photo);
+                    } catch (NullPointerException e){
+                        Picasso.get().load(R.drawable.charlie_chaplin).resize(94, 94).centerCrop().into(photo);
+                    }
                 }
             }
             @Override
@@ -86,16 +99,18 @@ public class FragmentPerInfoEdit extends Fragment {
     }
 
     private void createInformation(){
-        String username2 = username.getText().toString().toLowerCase();
-        String firstName2 = firstName.getText().toString().toLowerCase();
-        String lastName2 = lastName.getText().toString().toLowerCase();
-        String location2 = location.getText().toString().toLowerCase();
-        String age2 = age.getText().toString().toLowerCase();
-        String bio2 = bio.getText().toString().toLowerCase();
+        String username2 = username.getText().toString();
+        String firstName2 = firstName.getText().toString();
+        String lastName2 = lastName.getText().toString();
+        String location2 = location.getText().toString();
+        String age2 = age.getText().toString();
+        String bio2 = bio.getText().toString();
+        String url2 = photoEditURL.getText().toString();
         UserInformation info = new UserInformation(username2, location2, firstName2, lastName2, age2, user.getUid(), bio2);
+        info.setProfilePicURL(url2);
         FirebaseUser user = firebaseAuth.getCurrentUser();
         databaseReference.child(user.getUid()).child("UserInformation").setValue(info);
-        Toast.makeText(getActivity(), "Informacion actualizada!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Information updated!", Toast.LENGTH_SHORT).show();
     }
 
 

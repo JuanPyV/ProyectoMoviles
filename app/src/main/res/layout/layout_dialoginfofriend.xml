@@ -159,15 +159,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Ubication: "
+                    android:text="Location: "
                     android:textSize="20sp" />
 
-                    <TextView
-                        android:id="@+id/ubic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ubicacion: "
-                        android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/ubic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location:"
+                    android:textSize="20sp" />
             </LinearLayout>
 
         </LinearLayout>

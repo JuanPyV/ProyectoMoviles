@@ -52,9 +52,18 @@ public class FragmentFriendList extends Fragment {
                 String location = item.getLocation();
                 String age = item.getAge();
                 String url = item.getProfilePicURL() + "";
+                String uid = item.getUID();
+                double average = 0;
+                List<PersonRating> list = item.getPersonRatings();
+                if (list != null){
+                    for (int i = 0; i < list.size(); i++){
+                        average += list.get(i).getRating();
+                    }
+                    average /= list.size();
+                }
                 InfoFriendDialog infoFriendDialog = new InfoFriendDialog();
-                infoFriendDialog.newInstance(username, firstName,lastName,location,age, url).show(getFragmentManager(), "infoFriend dialog");
-                Log.wtf("tag", "Nombre: " + firstName + " Apellido: " + lastName + " Location: " + location + " Edad: " + age + " URL: " + url);
+                infoFriendDialog.newInstance(username, firstName,lastName,location,age, url, uid, average).show(getFragmentManager(), "infoFriend dialog");
+                //Log.wtf("tag", "Nombre: " + firstName + " Apellido: " + lastName + " Location: " + location + " Edad: " + age + " URL: " + url);
                 //Toast.makeText(getActivity(), "Nombre: " + firstName + "  / Apellido: " + lastName + "  / Location: " + location + "  / Edad: " + age, Toast.LENGTH_LONG).show();
             }
         });

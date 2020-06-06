@@ -11,13 +11,25 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.xw.repo.BubbleSeekBar;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class InfoFriendDialog extends AppCompatDialogFragment {
 
@@ -27,16 +39,21 @@ public class InfoFriendDialog extends AppCompatDialogFragment {
     public static final String ARGUMENTO_LOCATION = "Ubicacion";
     public static final String ARGUMENTO_AGE = "Edad";
     public static final String ARGUMENTO_URL = "URL";
+    public static final String ARGUMENTO_UID = "UID";
+    public static final String ARGUMENTO_RATING = "RATING";
 
-    private String usuario, nombre, apellido, ubicacion, edad, url;
+    private String usuario, nombre, apellido, ubicacion, edad, url, uid;
+    private double rating;
     private TextView username, name, lname, age, ubic, ratingNum;
     private ImageView placeImage;
     private Button btnRate;
     private double rate = 1;
     private BubbleSeekBar scoreSeek;
     private RatingBar rateBar;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser user;
 
-    public static InfoFriendDialog newInstance(String user, String nombre, String apellido, String ubicacion, String edad, String url) {
+    public static InfoFriendDialog newInstance(String user, String nombre, String apellido, String ubicacion, String edad, String url, String UID, double rating2) {
         InfoFriendDialog fragment = new InfoFriendDialog();
         Bundle bundle = new Bundle();
         bundle.putString(ARGUMENTO_USER, user);
@@ -45,6 +62,8 @@ public class InfoFriendDialog extends AppCompatDialogFragment {
         bundle.putString(ARGUMENTO_LOCATION, ubicacion);
         bundle.putString(ARGUMENTO_AGE, edad);
         bundle.putString(ARGUMENTO_URL, url);
+        bundle.putString(ARGUMENTO_UID, UID);
+        bundle.putDouble(ARGUMENTO_RATING, rating2);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -59,7 +78,10 @@ public class InfoFriendDialog extends AppCompatDialogFragment {
         ubicacion = args.getString(ARGUMENTO_LOCATION);
         edad = args.getString(ARGUMENTO_AGE);
         url = args.getString(ARGUMENTO_URL);
-        Log.wtf("Friends", "SE CREO DIALOG FRIENDS");
+        uid = args.getString(ARGUMENTO_UID);
+        rating = args.getDouble(ARGUMENTO_RATING);
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
     }
 
     @NonNull
@@ -80,15 +102,18 @@ public class InfoFriendDialog extends AppCompatDialogFragment {
         scoreSeek = v.findViewById(R.id.bubbleSeekBar);
         rateBar = v.findViewById(R.id.ratingBar);
 
-        Picasso.get().load(url).error(R.drawable.charlie_chaplin).into(placeImage);
+        try{
+            Picasso.get().load(url).error(R.drawable.charlie_chaplin).into(placeImage);
+        } catch(IllegalArgumentException e){
+            Picasso.get().load(R.drawable.charlie_chaplin).into(placeImage);
+        }
         username.setText(usuario);
         name.setText(nombre);
         lname.setText(apellido);
         age.setText(edad);
         ubic.setText(ubicacion);
-
-        ratingNum.setText(rate + "");
-        rateBar.setRating((float) rate);
+        ratingNum.setText(rating + "");
+        rateBar.setRating((float) rating);
         scoreSeek.setOnProgressChangedListener(new BubbleSeekBar.OnProgressChangedListener() {
             @Override
             public void onProgressChanged(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
@@ -105,13 +130,64 @@ public class InfoFriendDialog extends AppCompatDialogFragment {
         btnRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.wtf("rating friend", "Rating: " + rate);
+                ratePerson();
             }
         });
 
         builder.setView(v);
 
         return builder.create();
+    }
+
+    public void setRating(List<PersonRating> list){
+        double average = 0;
+        for (int i = 0; i < list.size(); i++){
+            average += list.get(i).getRating();
+        }
+        average /= list.size();
+        ratingNum.setText(average + "");
+        rateBar.setRating((float) average);
+    }
+
+    public void ratePerson(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = database.getReference().child("Users").child(uid).child("UserInformation");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserInformation userInformation = dataSnapshot.getValue(UserInformation.class);
+                List<PersonRating> personRatingList = userInformation.getPersonRatings();
+                if (personRatingList != null){
+                    boolean canRate = true;
+                    for (int i = 0; i < personRatingList.size(); i++){
+                        if (personRatingList.get(i).getUID().equals(user.getUid())){
+                            canRate = false;
+                        }
+                    }
+                    if (canRate){
+                        personRatingList.add(new PersonRating(rate, user.getUid()));
+                        userInformation.setPersonRatings(personRatingList);
+                        setRating(personRatingList);
+                        Toast.makeText(getActivity(), "You just rated your friend!", Toast.LENGTH_SHORT).show();
+
+                    } else{
+                        Toast.makeText(getActivity(), "You can only vote your friend once.", Toast.LENGTH_SHORT).show();
+                    }
+                } else{
+                    personRatingList = new LinkedList<>();
+                    personRatingList.add(new PersonRating(rate, user.getUid()));
+                    userInformation.setPersonRatings(personRatingList);
+                    setRating(personRatingList);
+                    Toast.makeText(getActivity(), "You just rated your friend!", Toast.LENGTH_SHORT).show();
+                }
+                dataSnapshot.getRef().setValue(userInformation);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

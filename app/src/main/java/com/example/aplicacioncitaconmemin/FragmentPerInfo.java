@@ -4,13 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,7 +16,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FragmentPerInfo extends Fragment {
@@ -49,9 +45,6 @@ public class FragmentPerInfo extends Fragment {
         ageP = v.findViewById(R.id.ageP);
         bioP = v.findViewById(R.id.bioP);
         imageP = v.findViewById(R.id.imageP);
-        System.out.println("estoy siendo creado");
-
-
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -60,15 +53,14 @@ public class FragmentPerInfo extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserInformation information = dataSnapshot.child(user.getUid()).child("UserInformation").getValue(UserInformation.class);
-                System.out.println("intentando cargar datos");
                 if (information != null) {
-                    System.out.println("el objeto no es nulo, cargando datos, tal vez sean vacios");
                     usernameP.setText(information.getUsername());
                     firstNameP.setText(information.getFirstName());
                     lastNameP.setText(information.getLastName());
                     locationP.setText(information.getLocation());
                     ageP.setText(information.getAge());
                     bioP.setText(information.getPersonalInformation());
+
                     try{
                         Picasso.get().load(information.getProfilePicURL() + "").resize(94, 94).centerCrop().error(R.drawable.charlie_chaplin).into(imageP);
                     } catch (IllegalArgumentException e){

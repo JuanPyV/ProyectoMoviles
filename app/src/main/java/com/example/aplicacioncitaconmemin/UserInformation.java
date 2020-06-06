@@ -4,14 +4,8 @@ import java.util.List;
 
 public class UserInformation {
 
-    private String UID;
-    private String username;
-    private String location;
-    private String firstName;
-    private String lastName;
-    private String age;
-    private String personalInformation;
-    private String profilePicURL;
+    private String UID, username, location, firstName, lastName, age, personalInformation, profilePicURL;
+    private List<PersonRating> personRatings;
 
     public UserInformation(String username, String location, String firstName, String lastName, String age, String UID, String bio) {
         this.username = username;
@@ -26,6 +20,14 @@ public class UserInformation {
 
     public UserInformation() {
 
+    }
+
+    public List<PersonRating> getPersonRatings() {
+        return personRatings;
+    }
+
+    public void setPersonRatings(List<PersonRating> personRatings) {
+        this.personRatings = personRatings;
     }
 
     public String getProfilePicURL() {

@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
                 Toast.makeText(MainActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information

@@ -22,17 +22,16 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/circle_border">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/photoEdit"
                 android:layout_width="94dp"
                 android:layout_height="94dp"
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="9dp"
                 android:layout_marginBottom="9dp"
-                android:adjustViewBounds="true"
                 android:background="@drawable/circle"
                 android:padding="3dp"
-                android:scaleType="centerInside"
                 android:src="@drawable/charlie_chaplin" />
 
         </RelativeLayout>
@@ -148,18 +147,37 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/bioLay"
+                    android:id="@+id/bioLay"
+                    style="@style/TextInputLayout"
+                    android:layout_width="310dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="Bio"
+                    android:orientation="vertical"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/bio"
+                        android:layout_width="310dp"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/photoLay"
                         style="@style/TextInputLayout"
                         android:layout_width="310dp"
                         android:layout_height="70dp"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="5dp"
-                        android:hint="Bio"
+                        android:hint="Photo URL"
                         android:orientation="vertical"
                         app:errorEnabled="true">
 
                         <EditText
-                            android:id="@+id/bio"
+                            android:id="@+id/photoEditURL"
                             android:layout_width="310dp"
                             android:layout_height="50dp"
                             android:ems="10"

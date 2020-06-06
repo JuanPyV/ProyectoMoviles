@@ -6,15 +6,11 @@ import java.util.List;
 public class PlaceInformation {
 
 
-    private double latitude, longitude, rating;
+    private double latitude, longitude;
     private String title, imageLink, description, snippet;
     private List<PersonRating> personRatings;
 
-    public PlaceInformation(String URL, String title2, String description2) {
-        this.imageLink = URL;
-        this.title = title2;
-        this.description = description2;
-    }
+
 
     public PlaceInformation(double latitude, double longitude, String title, String imageLink, String description, String snippet) {
         this.latitude = latitude;
@@ -23,7 +19,6 @@ public class PlaceInformation {
         this.imageLink = imageLink;
         this.description = description;
         this.snippet = snippet;
-        this.rating = 0;
 
     }
 
@@ -37,14 +32,6 @@ public class PlaceInformation {
 
     public void setPersonRatings(List<PersonRating> personRatings) {
         this.personRatings = personRatings;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
     }
 
     public String getSnippet() {
