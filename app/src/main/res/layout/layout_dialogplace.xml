@@ -4,28 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
-        android:clickable="true"
-        android:id="@+id/close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#00FFFFFF"
-        android:tint="#000000"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-
-    <ImageView
-        android:id="@+id/imageButton2close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="#000000"
-        android:clickable="true"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-        android:focusable="true" />
-
     <com.xw.repo.widget.BounceScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -123,7 +101,7 @@
                 android:layout_height="70dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                android:hint="Snippet">
+                android:hint="Subtitle">
 
                 <EditText
                     android:id="@+id/placeSnippet"
@@ -140,7 +118,7 @@
                 android:layout_height="70dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                android:hint="Url">
+                android:hint="Image Url">
 
                 <EditText
                     android:id="@+id/placeUrl"

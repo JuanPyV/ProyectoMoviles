@@ -34,6 +34,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036256372103:android:aff89febd4ab9614981f22",
+        "android_client_info": {
+          "package_name": "com.example.traverio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036256372103-v36aht2ado12ooqc5c8n8f77oep2bf0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU5lHuW0WF1vCOvxY3qND6QWq_9xafJOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036256372103-v36aht2ado12ooqc5c8n8f77oep2bf0l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

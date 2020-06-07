@@ -52,7 +52,7 @@
                         android:layout_marginStart="30dp"
                         android:layout_weight="1"
                         android:numStars="5"
-                        android:progressTint="#000000"
+                        android:progressTint="#FFC929"
                         android:rating="0" />
                 </LinearLayout>
             </LinearLayout>
