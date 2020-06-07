@@ -1,20 +1,30 @@
 package com.example.aplicacioncitaconmemin.Fragments;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.aplicacioncitaconmemin.Dialogs.InfoMapDialog;
 import com.example.aplicacioncitaconmemin.Dialogs.InfoPlaceDialog;
 import com.example.aplicacioncitaconmemin.AuxiliaryClasses.MarkerPlaceInformation;
 import com.example.aplicacioncitaconmemin.AuxiliaryClasses.PlaceInformation;
 import com.example.aplicacioncitaconmemin.R;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -39,6 +49,10 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
     GoogleMap map;
     MapView mapView;
     private ArrayList<MarkerPlaceInformation> markers;
+    private LocationRequest locationRequest;
+
+    private long UPDATE = 10 * 1000;
+    private long FASTEST = 2 * 1000;
     /*
     private Marker markerGdl;
     private Marker markerMty;
@@ -67,7 +81,6 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
             mapView.onCreate(null);
             mapView.onResume();
             mapView.getMapAsync(this);
-
         }
         FloatingActionButton fab = v.findViewById(R.id.fabAdd);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +92,8 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
                 place.show(getFragmentManager(), "place");
             }
         });
-
         return v;
+
     }
 
     public void loadIntoDatabaseDummy(){
@@ -99,7 +112,6 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
                         "Ciudad de la Torta Ahogada",
                         "Guadalajara, Jalisco"));
                 dataSnapshot.getRef().setValue(lista);
-
             }
 
             @Override
@@ -109,10 +121,43 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
         });
     }
 
+    public void grantLocation(){
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};
+            requestPermissions(permissions, 0);
+        } else{
+            map.setMyLocationEnabled(true);
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] p, int[] r){
+        //solo estamos checando el unico permiso que pedimos y tenemos
+        if (requestCode == 0 && r[0] == PackageManager.PERMISSION_GRANTED){
+            map.setMyLocationEnabled(true);
+        }
+    }
+
+
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(Objects.requireNonNull(getActivity()));
         map = googleMap;
+        grantLocation();
+
+        locationRequest = new LocationRequest();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(locationRequest);
+        LocationServices.getFusedLocationProviderClient(getActivity()).requestLocationUpdates(locationRequest, new LocationCallback(){
+            public void onLocationResult(LocationResult locationResult){
+                LatLng place = new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude());
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 20));
+            }
+        }, Looper.myLooper());
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference().child("Places");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

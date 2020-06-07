@@ -127,6 +127,16 @@ public class InfoMapDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
+    public void refreshFragment() {
+        Fragment frg = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (frg instanceof FragmentMap) {
+            FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.detach(frg);
+            fragmentTransaction.attach(frg);
+            fragmentTransaction.commit();
+        }
+    }
+
     public void setRating(List<PersonRating> list){
         double average = 0;
         for (int i = 0; i < list.size(); i++){
@@ -167,6 +177,7 @@ public class InfoMapDialog extends AppCompatDialogFragment {
                                 //aqui se modifica la calificacion
                                 setRating(personRatingList);
                                 Toast.makeText(getActivity(), "Score added!", Toast.LENGTH_SHORT).show();
+                                refreshFragment();
                                 break;
                             } else{
                                 Toast.makeText(getActivity(), "You can only vote for a place one.", Toast.LENGTH_SHORT).show();
@@ -179,20 +190,16 @@ public class InfoMapDialog extends AppCompatDialogFragment {
                             //aqui se modifica la calificacion
                             setRating(personRatingList);
                             Toast.makeText(getActivity(), "Score added!", Toast.LENGTH_SHORT).show();
+                            refreshFragment();
                             break;
                         }
 
                     }
                 }
+
                 dataSnapshot.getRef().setValue(lugares);
 
-                Fragment frg = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-                if (frg instanceof FragmentMap){
-                    FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.detach(frg);
-                    fragmentTransaction.attach(frg);
-                    fragmentTransaction.commit();
-                }
+
             }
 
             @Override
@@ -200,6 +207,8 @@ public class InfoMapDialog extends AppCompatDialogFragment {
 
             }
         });
+
+
     }
 
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,7 +41,7 @@ public class InfoPlaceDialog extends AppCompatDialogFragment {
     private EditText snippet;
     private EditText url;
     private Button submit;
-    private ImageButton close;
+    private ImageView close;
 
     @NonNull
     @Override
@@ -56,7 +57,7 @@ public class InfoPlaceDialog extends AppCompatDialogFragment {
         snippet = v.findViewById(R.id.placeSnippet);
         url = v.findViewById(R.id.placeUrl);
         submit = v.findViewById(R.id.submit);
-        close = v.findViewById(R.id.close);
+        close = v.findViewById(R.id.imageButton2close);
 
         final AlertDialog dialog = builder.create();
         close.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +65,7 @@ public class InfoPlaceDialog extends AppCompatDialogFragment {
             public void onClick(View v) {
                 Log.wtf("CloseDialog", "Se cierra el dialog");
                 dialog.dismiss();
+
             }
         });
         submit.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +90,7 @@ public class InfoPlaceDialog extends AppCompatDialogFragment {
         final String imageLink2 = url.getText().toString();
         if (title2.equals("") || description2.equals("") || lon2.equals("") ||
                 lat2.equals("") || snippet2.equals("")){
-            Toast.makeText(getActivity(), "Debes llenar todos los datos, solo puedes omitir la imagen.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "You have to fill all spaces, only image URL can be blank.", Toast.LENGTH_SHORT).show();
         } else{
             try{
                 final double latitude = Double.parseDouble(lat2);
@@ -111,6 +113,7 @@ public class InfoPlaceDialog extends AppCompatDialogFragment {
                         PlaceInformation newPlace = new PlaceInformation(latitude, longitude, title2, imageLink2, description2, snippet2);
                         lugares.add(newPlace);
                         dataSnapshot.getRef().setValue(lugares);
+                        Toast.makeText(getActivity(), "New place added correctly", Toast.LENGTH_SHORT).show();
                         //refrescar fragmento para mostrar nuevo marker
                         Fragment frg = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
                         if (frg instanceof FragmentMap){
@@ -119,6 +122,7 @@ public class InfoPlaceDialog extends AppCompatDialogFragment {
                             fragmentTransaction.attach(frg);
                             fragmentTransaction.commit();
                         }
+                        getDialog().dismiss();
                     }
 
                     @Override
