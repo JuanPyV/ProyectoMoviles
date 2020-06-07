@@ -1,6 +1,5 @@
-package com.example.aplicacioncitaconmemin;
+package com.example.aplicacioncitaconmemin.AuxiliaryClasses;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceInformation {

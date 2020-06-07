@@ -1,4 +1,4 @@
-package com.example.aplicacioncitaconmemin.Feed;
+package com.example.aplicacioncitaconmemin.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.ModelFeed;
 import com.example.aplicacioncitaconmemin.R;
 import com.squareup.picasso.Picasso;
 

@@ -1,4 +1,4 @@
-package com.example.aplicacioncitaconmemin;
+package com.example.aplicacioncitaconmemin.Dialogs;
 
 
 import android.app.AlertDialog;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +18,9 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.aplicacioncitaconmemin.Fragments.FragmentMap;
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.PlaceInformation;
+import com.example.aplicacioncitaconmemin.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -111,7 +113,7 @@ public class InfoPlaceDialog extends AppCompatDialogFragment {
                         dataSnapshot.getRef().setValue(lugares);
                         //refrescar fragmento para mostrar nuevo marker
                         Fragment frg = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-                        if (frg instanceof  FragmentMap){
+                        if (frg instanceof FragmentMap){
                             FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.detach(frg);
                             fragmentTransaction.attach(frg);

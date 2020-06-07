@@ -1,4 +1,4 @@
-package com.example.aplicacioncitaconmemin;
+package com.example.aplicacioncitaconmemin.Fragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,8 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.FriendInformation;
+import com.example.aplicacioncitaconmemin.R;
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.UserInformation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -140,7 +141,7 @@ public class FragmentPeople extends Fragment {
                         users2.add(new FriendInformation(objDataSnapshot.getKey(), userInformation.getUsername()));
                     }
                     //adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, users);  viejo adaptaer
-                    adapter = new ArrayAdapter<FriendInformation>(getActivity(), android.R.layout.simple_list_item_1, users2);
+                    adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, users2);
                     information.setAdapter(adapter);
                 }
             }

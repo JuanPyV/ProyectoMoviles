@@ -1,10 +1,9 @@
-package com.example.aplicacioncitaconmemin;
+package com.example.aplicacioncitaconmemin.Dialogs;
 
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,13 +16,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.PersonRating;
+import com.example.aplicacioncitaconmemin.R;
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.UserInformation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.xw.repo.BubbleSeekBar;

@@ -1,5 +1,4 @@
-package com.example.aplicacioncitaconmemin;
-import java.util.ArrayList;
+package com.example.aplicacioncitaconmemin.AuxiliaryClasses;
 import java.util.List;
 
 public class UserInformation {

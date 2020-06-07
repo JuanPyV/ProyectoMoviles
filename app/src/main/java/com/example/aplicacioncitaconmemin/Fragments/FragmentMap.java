@@ -1,4 +1,4 @@
-package com.example.aplicacioncitaconmemin;
+package com.example.aplicacioncitaconmemin.Fragments;
 
 import android.os.Bundle;
 
@@ -9,6 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.aplicacioncitaconmemin.Dialogs.InfoMapDialog;
+import com.example.aplicacioncitaconmemin.Dialogs.InfoPlaceDialog;
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.MarkerPlaceInformation;
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.PlaceInformation;
+import com.example.aplicacioncitaconmemin.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -17,7 +23,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

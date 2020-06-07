@@ -1,9 +1,6 @@
-package com.example.aplicacioncitaconmemin.Feed;
+package com.example.aplicacioncitaconmemin.Fragments;
 
-import android.content.ClipData;
-import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,9 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.aplicacioncitaconmemin.MainActivity;
+import com.example.aplicacioncitaconmemin.Adapters.AdapterFeed;
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.ModelFeed;
 import com.example.aplicacioncitaconmemin.R;
-import com.example.aplicacioncitaconmemin.UserInformation;
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.UserInformation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -72,9 +70,9 @@ public class FragmentFeed extends Fragment {
                         try{
                             if (user.getUid().equals(lista.get(lista.size() - 1 - viewHolder.getAdapterPosition()).getUID())){
                                 lista.remove(lista.size() - 1 - viewHolder.getAdapterPosition());
-                                Toast.makeText(getActivity(), "Mensaje eliminado", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Post deleted!", Toast.LENGTH_SHORT).show();
                             } else{
-                                Toast.makeText(getActivity(), "No puedes eliminar un mensaje que no es tuyo", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "This post is not yours, you can't delete it.", Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (Exception e){

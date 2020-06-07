@@ -1,4 +1,4 @@
-package com.example.aplicacioncitaconmemin;
+package com.example.aplicacioncitaconmemin.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,6 +12,8 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.aplicacioncitaconmemin.R;
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.UserInformation;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -34,9 +36,7 @@ public class FriendAdapter extends ArrayAdapter<UserInformation> {
         View listItem = convertView;
         if(listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.row_frienditem,parent,false);
-
         UserInformation friend = people.get(position);
-
         ImageView image = (ImageView)listItem.findViewById(R.id.imageView_profile);
         //image.setImageResource(R.drawable.batman);
         try{

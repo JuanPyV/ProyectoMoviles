@@ -1,11 +1,14 @@
-package com.example.aplicacioncitaconmemin;
+package com.example.aplicacioncitaconmemin.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-import com.example.aplicacioncitaconmemin.Feed.FragmentFeed;
+import com.example.aplicacioncitaconmemin.Fragments.FragmentFeed;
+import com.example.aplicacioncitaconmemin.Fragments.FragmentMap;
+import com.example.aplicacioncitaconmemin.Fragments.FragmentProfile;
+import com.example.aplicacioncitaconmemin.R;
 
 public class Home extends AppCompatActivity {
     MeowBottomNavigation meo;

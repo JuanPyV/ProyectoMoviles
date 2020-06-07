@@ -1,4 +1,4 @@
-package com.example.aplicacioncitaconmemin.Feed;
+package com.example.aplicacioncitaconmemin.AuxiliaryClasses;
 
 public class ModelFeed {
 

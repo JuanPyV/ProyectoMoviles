@@ -1,10 +1,9 @@
-package com.example.aplicacioncitaconmemin;
+package com.example.aplicacioncitaconmemin.Dialogs;
 
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +18,10 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.aplicacioncitaconmemin.Fragments.FragmentMap;
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.PersonRating;
+import com.example.aplicacioncitaconmemin.AuxiliaryClasses.PlaceInformation;
+import com.example.aplicacioncitaconmemin.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -85,7 +88,7 @@ public class InfoMapDialog extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.placeDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.placeDialog);
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.layout_dialoginfomap,null);
         info = v.findViewById(R.id.info);
@@ -184,7 +187,7 @@ public class InfoMapDialog extends AppCompatDialogFragment {
                 dataSnapshot.getRef().setValue(lugares);
 
                 Fragment frg = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-                if (frg instanceof  FragmentMap){
+                if (frg instanceof FragmentMap){
                     FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.detach(frg);
                     fragmentTransaction.attach(frg);

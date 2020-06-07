@@ -1,4 +1,4 @@
-package com.example.aplicacioncitaconmemin;
+package com.example.aplicacioncitaconmemin.AuxiliaryClasses;
 
 import com.google.android.gms.maps.model.Marker;
 

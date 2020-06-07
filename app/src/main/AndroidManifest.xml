@@ -14,9 +14,9 @@
 
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCSQqobFj6GLqxzmYmjtBAKZUFhncYOY_4"/>
 
-        <activity android:name=".Home" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.Home" />
+        <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
