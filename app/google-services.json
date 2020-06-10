@@ -8,6 +8,38 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1036256372103:android:55544832fa7d13a2981f22",
+        "android_client_info": {
+          "package_name": "app.project.traverio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036256372103-v36aht2ado12ooqc5c8n8f77oep2bf0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSQqobFj6GLqxzmYmjtBAKZUFhncYOY_4"
+        },
+        {
+          "current_key": "AIzaSyAU5lHuW0WF1vCOvxY3qND6QWq_9xafJOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036256372103-v36aht2ado12ooqc5c8n8f77oep2bf0l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1036256372103:android:e47ef9eb436b3bc2981f22",
         "android_client_info": {
           "package_name": "com.example.aplicacioncitaconmemin"
@@ -20,6 +52,9 @@
         }
       ],
       "api_key": [
+        {
+          "current_key": "AIzaSyCSQqobFj6GLqxzmYmjtBAKZUFhncYOY_4"
+        },
         {
           "current_key": "AIzaSyAU5lHuW0WF1vCOvxY3qND6QWq_9xafJOs"
         }
@@ -44,11 +79,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1036256372103-j5t6886t53ar7b8n2ia2fsbgsvb3fv1n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.traverio",
+            "certificate_hash": "b1621caac4db39d1347dc247462156d65b3b8452"
+          }
+        },
+        {
           "client_id": "1036256372103-v36aht2ado12ooqc5c8n8f77oep2bf0l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
+        {
+          "current_key": "AIzaSyCSQqobFj6GLqxzmYmjtBAKZUFhncYOY_4"
+        },
         {
           "current_key": "AIzaSyAU5lHuW0WF1vCOvxY3qND6QWq_9xafJOs"
         }

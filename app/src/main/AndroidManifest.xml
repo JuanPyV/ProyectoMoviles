@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.traverio">
+    package="app.project.traverio">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -10,13 +10,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait" >
 
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCSQqobFj6GLqxzmYmjtBAKZUFhncYOY_4"/>
 
-        <activity android:name=".Activities.Home" />
-        <activity android:name=".Activities.RegisterActivity" />
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name="app.project.traverio.Activities.Home" />
+        <activity android:name="app.project.traverio.Activities.RegisterActivity" />
+        <activity android:name="app.project.traverio.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

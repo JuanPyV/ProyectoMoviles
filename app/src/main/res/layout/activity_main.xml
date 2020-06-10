@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/loginbk"
-    tools:context=".Activities.MainActivity">
+    tools:context="app.project.traverio.Activities.MainActivity">
 
     <Button
         android:id="@+id/login"

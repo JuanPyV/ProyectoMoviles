@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_grey"
-    tools:context=".Fragments.FragmentFeed">
+    tools:context="app.project.traverio.Fragments.FragmentFeed">
 
     <RelativeLayout
         android:id="@+id/rellay1"
@@ -69,7 +69,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="502dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/rellay1"
         android:layout_marginTop="19dp" />
 
